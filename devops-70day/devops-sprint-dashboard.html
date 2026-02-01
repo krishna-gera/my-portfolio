@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Sprint Dashboard | 70-Day Journey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #6366f1;
+            --color-secondary: #8b5cf6;
+            --color-accent: #ec4899;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-bg: #0f172a;
+            --color-surface: #1e293b;
+            --color-surface-light: #334155;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .glass-light {
+            background: rgba(51, 65, 85, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Neon Glow */
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.5), 0 0 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.8), 0 0 20px rgba(139, 92, 246, 0.6);
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Day Node Styles */
+        .day-node {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-node::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .day-node:hover::before {
+            left: 100%;
+        }
+
+        .day-node:hover {
+            transform: translateX(4px) scale(1.02);
+            border-color: #6366f1;
+        }
+
+        .day-node.active {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            border-color: #6366f1;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .day-node.completed {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(5, 150, 105, 0.15));
+            border-color: #10b981;
+        }
+
+        .day-node.current-day {
+            animation: pulse-border 2s infinite;
+            border-width: 2px;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% {
+                border-color: #f59e0b;
+                box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+            }
+            50% {
+                border-color: #fbbf24;
+                box-shadow: 0 0 0 8px rgba(245, 158, 11, 0);
+            }
+        }
+
+        /* Phase Button */
+        .phase-btn {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .phase-btn.active-phase {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Progress Ring */
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Streak Counter */
+        .streak-flame {
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.7));
+        }
+
+        /* Checkbox Animation */
+        .checkbox-wrapper input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-wrapper .checkbox-custom {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #6366f1;
+            border-radius: 6px;
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-wrapper input[type="checkbox"]:checked + .checkbox-custom {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-color: #8b5cf6;
+            animation: checkboxPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .checkbox-wrapper input[type="checkbox"]:checked + .checkbox-custom::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        @keyframes checkboxPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #6366f1;
+            pointer-events: none;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Stats Card */
+        .stat-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="animated-bg flex flex-col h-screen overflow-hidden">
+
+    <!-- Navigation Bar -->
+    <nav class="glass border-b border-slate-700/50 px-4 md:px-6 py-4 flex justify-between items-center shadow-2xl z-20">
+        <div class="flex items-center gap-3">
+            <div class="bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-bold p-2 md:p-3 rounded-xl neon-glow mono text-sm md:text-base">
+                DO
+            </div>
+            <div>
+                <h1 class="text-lg md:text-xl font-bold gradient-text">DevOps Sprint Dashboard</h1>
+                <p class="text-xs text-slate-400 mono hidden md:block">70-Day Zero to Hero Journey</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-3 md:gap-6">
+            <!-- Streak Counter -->
+            <div class="glass-light px-3 md:px-4 py-2 rounded-lg hidden sm:block">
+                <p class="text-xs text-slate-400 uppercase tracking-wider">Streak</p>
+                <div class="flex items-center gap-2">
+                    <span class="text-xl md:text-2xl streak-flame">🔥</span>
+                    <span class="font-bold text-orange-400 mono text-lg md:text-xl" id="streak-count">0</span>
+                </div>
+            </div>
+            <!-- Progress Ring -->
+            <div class="relative" style="width: 60px; height: 60px;">
+                <svg class="progress-ring" width="60" height="60">
+                    <circle cx="30" cy="30" r="24" stroke="rgba(99, 102, 241, 0.2)" stroke-width="4" fill="none"/>
+                    <circle id="progress-ring-circle" cx="30" cy="30" r="24" stroke="url(#gradient)" stroke-width="4" fill="none" 
+                            stroke-dasharray="150.8" stroke-dashoffset="150.8" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="text-xs font-bold mono" id="progress-percent">0%</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="flex flex-1 overflow-hidden">
+        
+        <!-- Sidebar: Roadmap Navigation -->
+        <aside class="w-full md:w-80 lg:w-96 glass border-r border-slate-700/50 flex flex-col h-full z-10">
+            <div class="p-4 border-b border-slate-700/50">
+                <h2 class="font-semibold text-slate-200 flex items-center gap-2">
+                    <span class="text-xl">🗺️</span>
+                    Learning Timeline
+                </h2>
+                <p class="text-xs text-slate-400 mt-1">Track your daily progress</p>
+            </div>
+            
+            <!-- Phase Selector -->
+            <div class="grid grid-cols-3 gap-2 p-2 border-b border-slate-700/50">
+                <button onclick="filterPhase(1)" class="phase-btn active-phase py-2 px-2 text-xs md:text-sm font-medium rounded-lg focus:outline-none transition-all" id="btn-phase-1">
+                    <div class="font-bold">Phase 1</div>
+                    <div class="text-xs opacity-75">Foundation</div>
+                </button>
+                <button onclick="filterPhase(2)" class="phase-btn glass-light py-2 px-2 text-xs md:text-sm font-medium rounded-lg focus:outline-none transition-all" id="btn-phase-2">
+                    <div class="font-bold">Phase 2</div>
+                    <div class="text-xs opacity-75">Engine</div>
+                </button>
+                <button onclick="filterPhase(3)" class="phase-btn glass-light py-2 px-2 text-xs md:text-sm font-medium rounded-lg focus:outline-none transition-all" id="btn-phase-3">
+                    <div class="font-bold">Phase 3</div>
+                    <div class="text-xs opacity-75">Professional</div>
+                </button>
+            </div>
+
+            <!-- Day List -->
+            <div id="day-list" class="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-2">
+                <!-- Days will be injected here via JS -->
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="flex-1 flex flex-col h-full overflow-y-auto custom-scrollbar p-4 md:p-8 relative">
+            
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="max-w-6xl mx-auto w-full">
+                <!-- Welcome Card -->
+                <div class="glass rounded-2xl p-6 md:p-8 mb-6 neon-glow">
+                    <div class="flex items-start justify-between flex-wrap gap-4">
+                        <div class="flex-1">
+                            <h2 class="text-2xl md:text-3xl font-bold gradient-text mb-3">Welcome Back, DevOps Engineer! 👋</h2>
+                            <p class="text-slate-300 leading-relaxed mb-4">
+                                You're on a <span class="font-bold text-indigo-400">70-day intensive journey</span> to transform from zero to hero. 
+                                Each day focuses on practical, job-ready skills designed for 1.5 hours of focused work.
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                                <div class="glass-light px-4 py-2 rounded-lg">
+                                    <div class="text-xs text-slate-400">Current Day</div>
+                                    <div class="font-bold text-lg mono" id="current-day-display">Day 1</div>
+                                </div>
+                                <div class="glass-light px-4 py-2 rounded-lg">
+                                    <div class="text-xs text-slate-400">Days Completed</div>
+                                    <div class="font-bold text-lg mono"><span id="days-completed-count">0</span> / 70</div>
+                                </div>
+                                <div class="glass-light px-4 py-2 rounded-lg">
+                                    <div class="text-xs text-slate-400">Current Phase</div>
+                                    <div class="font-bold text-lg" id="current-phase-display">Foundation</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="float-animation">
+                            <div class="text-6xl md:text-7xl">🚀</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="stat-card glass rounded-xl p-5 border border-indigo-500/30">
+                        <div class="text-sm text-slate-400 uppercase tracking-wider mb-2">Completion Rate</div>
+                        <div class="text-3xl font-bold gradient-text mono" id="completion-rate">0%</div>
+                    </div>
+                    <div class="stat-card glass rounded-xl p-5 border border-purple-500/30">
+                        <div class="text-sm text-slate-400 uppercase tracking-wider mb-2">Days Remaining</div>
+                        <div class="text-3xl font-bold text-purple-400 mono" id="days-remaining">70</div>
+                    </div>
+                    <div class="stat-card glass rounded-xl p-5 border border-pink-500/30">
+                        <div class="text-sm text-slate-400 uppercase tracking-wider mb-2">Milestones Hit</div>
+                        <div class="text-3xl font-bold text-pink-400 mono" id="milestones-hit">0 / 3</div>
+                    </div>
+                    <div class="stat-card glass rounded-xl p-5 border border-orange-500/30">
+                        <div class="text-sm text-slate-400 uppercase tracking-wider mb-2">Study Hours</div>
+                        <div class="text-3xl font-bold text-orange-400 mono" id="study-hours">0h</div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Progress Chart -->
+                    <div class="glass rounded-2xl p-6 border border-slate-700/50">
+                        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <span>📊</span> Overall Progress
+                        </h3>
+                        <div class="h-64 flex items-center justify-center">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                    </div>
+                    <!-- Topic Distribution -->
+                    <div class="glass rounded-2xl p-6 border border-slate-700/50">
+                        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <span>📚</span> Topic Distribution
+                        </h3>
+                        <div class="h-64">
+                            <canvas id="topicChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="mt-6 glass rounded-2xl p-6 border border-slate-700/50">
+                    <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4">Quick Actions</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <button onclick="jumpToCurrentDay()" class="glass-light px-4 py-3 rounded-lg hover:bg-indigo-500/20 transition-all flex items-center justify-center gap-2">
+                            <span>📍</span>
+                            <span class="text-sm">Today's Task</span>
+                        </button>
+                        <button onclick="showStats()" class="glass-light px-4 py-3 rounded-lg hover:bg-purple-500/20 transition-all flex items-center justify-center gap-2">
+                            <span>📈</span>
+                            <span class="text-sm">My Stats</span>
+                        </button>
+                        <button onclick="resetProgress()" class="glass-light px-4 py-3 rounded-lg hover:bg-pink-500/20 transition-all flex items-center justify-center gap-2">
+                            <span>🔄</span>
+                            <span class="text-sm">Reset</span>
+                        </button>
+                        <button onclick="exportProgress()" class="glass-light px-4 py-3 rounded-lg hover:bg-orange-500/20 transition-all flex items-center justify-center gap-2">
+                            <span>💾</span>
+                            <span class="text-sm">Export</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Detail View (Initially Hidden) -->
+            <div id="daily-detail-view" class="hidden max-w-5xl mx-auto w-full">
+                
+                <!-- Header -->
+                <div class="flex justify-between items-start mb-6 flex-wrap gap-4">
+                    <div class="flex-1">
+                        <span class="inline-block px-3 py-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full text-xs font-semibold tracking-wide mb-2 mono" id="detail-phase">Phase 1</span>
+                        <h2 class="text-2xl md:text-4xl font-bold gradient-text mb-2" id="detail-title">Day 1: Introduction to Linux</h2>
+                        <p class="text-slate-400 mono text-sm md:text-base" id="detail-topic">Topic: Operating Systems</p>
+                    </div>
+                    <label class="checkbox-wrapper cursor-pointer">
+                        <input type="checkbox" id="mark-complete-checkbox" onchange="toggleComplete()">
+                        <span class="checkbox-custom"></span>
+                    </label>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Left Col: Learning Content -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <!-- Theory Card -->
+                        <div class="glass rounded-2xl p-6 border border-slate-700/50">
+                            <h3 class="flex items-center gap-2 font-bold text-lg text-slate-200 mb-3">
+                                <span>📖</span> Core Concept
+                            </h3>
+                            <p class="text-slate-300 leading-relaxed" id="detail-theory">
+                                Linux is the backbone of DevOps. Today we focus on understanding the kernel, shell, and basic file system hierarchy.
+                            </p>
+                        </div>
+
+                        <!-- Practical Task Card -->
+                        <div class="glass rounded-2xl p-6 border-l-4 border-indigo-500 bg-gradient-to-r from-indigo-500/10 to-transparent">
+                            <h3 class="flex items-center gap-2 font-bold text-lg text-indigo-300 mb-3">
+                                <span>⚡</span> Practical Task (1 Hour)
+                            </h3>
+                            <div class="text-slate-300 leading-relaxed prose-sm" id="detail-practical">
+                                1. Install a Linux VM or use WSL. <br>
+                                2. Navigate directories using `cd`, `ls`, `pwd`. <br>
+                                3. Create a file structure for a dummy project.
+                            </div>
+                        </div>
+
+                        <!-- Notes Section -->
+                        <div class="glass rounded-2xl p-6 border border-slate-700/50">
+                            <h3 class="flex items-center gap-2 font-bold text-lg text-slate-200 mb-3">
+                                <span>📝</span> My Notes
+                            </h3>
+                            <textarea id="day-notes" class="w-full bg-slate-800/50 border border-slate-600 rounded-lg p-3 text-slate-300 focus:outline-none focus:border-indigo-500 transition-colors min-h-32" placeholder="Add your notes here..."></textarea>
+                            <button onclick="saveNotes()" class="mt-3 px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all">
+                                Save Notes
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Col: Resources & Info -->
+                    <div class="space-y-6">
+                        <div class="glass rounded-2xl p-6 border border-slate-700/50">
+                            <h3 class="font-bold text-sm text-slate-400 uppercase tracking-wider mb-4">📚 Resources</h3>
+                            <ul class="space-y-3 text-sm" id="detail-resources">
+                                <li><a href="#" class="text-indigo-400 hover:text-indigo-300 underline">Linux Journey</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Time Tracker -->
+                        <div class="glass rounded-2xl p-6 border border-slate-700/50">
+                            <h3 class="font-bold text-sm text-slate-400 uppercase tracking-wider mb-4">⏱️ Time Tracker</h3>
+                            <div class="text-center mb-4">
+                                <div class="text-4xl font-bold mono gradient-text" id="timer-display">00:00</div>
+                                <p class="text-xs text-slate-400 mt-2">Study time today</p>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="startTimer()" class="flex-1 px-3 py-2 bg-green-500/20 text-green-400 border border-green-500/30 rounded-lg text-sm font-medium hover:bg-green-500/30 transition-all">
+                                    Start
+                                </button>
+                                <button onclick="stopTimer()" class="flex-1 px-3 py-2 bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-sm font-medium hover:bg-red-500/30 transition-all">
+                                    Stop
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Footer -->
+                <div class="mt-8 flex justify-between">
+                    <button onclick="prevDay()" class="px-6 py-3 glass-light hover:bg-indigo-500/20 rounded-lg transition-all flex items-center gap-2">
+                        <span>←</span> Previous
+                    </button>
+                    <button onclick="nextDay()" class="px-6 py-3 glass-light hover:bg-indigo-500/20 rounded-lg transition-all flex items-center gap-2">
+                        Next <span>→</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 glass-light px-6 py-4 rounded-xl shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 border border-slate-700/50">
+        <div class="flex items-center gap-3">
+            <span id="toast-icon" class="text-2xl">✓</span>
+            <div>
+                <div id="toast-title" class="font-semibold text-slate-200">Success!</div>
+                <div id="toast-message" class="text-sm text-slate-400">Task completed</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Data Structure: The 70-Day Plan ---
+        const devOpsData = [
+            // PHASE 1: FOUNDATION (Days 1-28)
+            { day: 1, phase: 1, topic: "Linux Fundamentals", title: "Shell & File System", theory: "Understanding the Linux kernel, Shell (Bash), and the File System Hierarchy Standard (FHS). Linux is where 90% of DevOps happens.", practical: "1. Install Ubuntu via WSL2 or VirtualBox.<br>2. Open terminal.<br>3. Explore root `/` vs home `~`.<br>4. Commands: `ls -la`, `pwd`, `cd`, `mkdir`, `touch`.", resources: ["LinuxJourney.com - Intro", "DevOps Roadmap PDF Pg 6"], startDate: "2025-02-01" },
+            { day: 2, phase: 1, topic: "Linux Fundamentals", title: "File Manipulation & Permissions", theory: "Managing files and securing them. Understanding Read(4), Write(2), Execute(1).", practical: "1. Create a script file.<br>2. Change permissions using `chmod 755`.<br>3. Change ownership with `chown`.<br>4. View file content with `cat`, `less`, `head`, `tail`.", resources: ["Linux Permissions Calculator"], startDate: "2025-02-02" },
+            { day: 3, phase: 1, topic: "Linux Fundamentals", title: "Text Processing & Piping", theory: "The power of combining commands. IO Redirection (>, >>, |). grep, awk, sed basics.", practical: "1. Create a text file with 100 random lines.<br>2. Use `grep` to find a specific word.<br>3. Pipe `|` output of `ls` to `grep` to filter files.<br>4. Redirect output to a new file.", resources: ["Explainshell.com"], startDate: "2025-02-03" },
+            { day: 4, phase: 1, topic: "Linux Fundamentals", title: "Process Management & Systemd", theory: "How software runs in the background. PID, kill signals, systemctl.", practical: "1. Run a long command in background (`&`).<br>2. Find it using `ps aux | grep ...`.<br>3. Kill the process.<br>4. Check status of sshd service: `systemctl status ssh`.", resources: ["DigitalOcean: Systemd Essentials"], startDate: "2025-02-04" },
+            { day: 5, phase: 1, topic: "Linux Fundamentals", title: "Bash Scripting Basics", theory: "Automating manual tasks. Variables, Loops, Conditionals in bash.", practical: "1. Write `backup.sh`.<br>2. Script should: Create a 'backup' folder, copy all .txt files there, and zip it.<br>3. Schedule it with `cron` (concept only).", resources: ["DevHints: Bash"], startDate: "2025-02-05" },
+            { day: 6, phase: 1, topic: "Version Control (Git)", title: "Git Basics", theory: "Distributed version control. Repositories, Staging, Commits.", practical: "1. Install Git.<br>2. `git init` a project.<br>3. Create files, `git add`, `git commit`.<br>4. View `git log` and `git status`.", resources: ["Pro Git Book (Ch 1-2)"], startDate: "2025-02-06" },
+            { day: 7, phase: 1, topic: "Version Control (Git)", title: "Branching & Merging", theory: "Parallel development. HEAD, Master/Main, Feature branches.", practical: "1. Create `feature-login` branch.<br>2. Make changes and commit.<br>3. Switch to main.<br>4. Merge `feature-login` into main.<br>5. Simulate a merge conflict and resolve it.", resources: ["LearnGitBranching.js.org"], startDate: "2025-02-07" },
+            { day: 8, phase: 1, topic: "Version Control (Git)", title: "GitHub & Collaboration", theory: "Remote repositories. Push, Pull, PRs, Forking.", practical: "1. Create GitHub Repo.<br>2. Push local code to remote.<br>3. Create a README.md on GitHub UI and `git pull` locally.<br>4. Create a Pull Request (PR).", resources: ["GitHub Guides"], startDate: "2025-02-08" },
+            { day: 9, phase: 1, topic: "Networking", title: "OSI Model, IP & DNS", theory: "How computers talk. IP addresses (v4/v6), Subnets, DNS resolution.", practical: "1. Check your IP `ip addr`.<br>2. Ping google.com.<br>3. Use `nslookup` or `dig` to trace google.com IP.<br>4. Edit `/etc/hosts` to map `myserver.local` to `127.0.0.1`.", resources: ["Roadmap PDF Pg 7"], startDate: "2025-02-09" },
+            { day: 10, phase: 1, topic: "Networking", title: "HTTP/HTTPS & Ports", theory: "Web protocols. Methods (GET, POST), Status Codes (200, 404, 500). SSL/TLS.", practical: "1. Use `curl -v google.com` to see headers.<br>2. Identify ports: 80 (HTTP), 443 (HTTPS), 22 (SSH).<br>3. Check listening ports with `netstat -tulpn`.", resources: ["Mozilla MDN HTTP"], startDate: "2025-02-10" },
+            { day: 11, phase: 1, topic: "Networking", title: "SSH & Security", theory: "Secure Shell access. Keys vs Passwords. Firewall basics (UFW).", practical: "1. Generate SSH keys `ssh-keygen`.<br>2. SSH into localhost (if possible) or a VM.<br>3. Copy file using `scp`.<br>4. Enable ufw and allow port 22.", resources: ["DigitalOcean SSH Guide"], startDate: "2025-02-11" },
+            { day: 12, phase: 1, topic: "Python", title: "Python Basics", theory: "Why Python for DevOps? Syntax, Variables, Data Types.", practical: "1. Install Python.<br>2. Write script to print 'Hello DevOps'.<br>3. Use Lists and Dictionaries to store server names and IPs.", resources: ["Automate the Boring Stuff"], startDate: "2025-02-12" },
+            { day: 13, phase: 1, topic: "Python", title: "Functions & Modules", theory: "Reusable code. Importing `os` and `subprocess` modules.", practical: "1. Write a function `check_disk_space()`.<br>2. Use `os` module to list files in a directory.<br>3. Import this function into another script.", resources: ["Python.org Docs"], startDate: "2025-02-13" },
+            { day: 14, phase: 1, topic: "Python", title: "File Handling & JSON", theory: "Reading configs. JSON parsing.", practical: "1. Create `config.json` with `{'db_host': 'localhost'}`.<br>2. Write script to read JSON and print values.<br>3. Modify value and save back.", resources: ["RealPython JSON"], startDate: "2025-02-14" },
+            { day: 15, phase: 1, topic: "Python", title: "Scripting for DevOps", theory: "Interacting with the OS. Using `subprocess` library.", practical: "1. Write python script to execute shell command `ls -la`.<br>2. Capture the output and save to a file.<br>3. Write a script that checks if a website is up (using `requests` lib).", resources: ["Roadmap PDF Pg 9"], startDate: "2025-02-15" },
+            { day: 16, phase: 1, topic: "Review/Buffer", title: "Consolidation Day", theory: "Catch up on Linux/Python/Git.", practical: "Review notes. Redo the Python script for website checking.", resources: ["Self-Review"], startDate: "2025-02-16" },
+            { day: 17, phase: 1, topic: "Containerization", title: "Docker Intro", theory: "VM vs Container. Docker Engine. Image vs Container.", practical: "1. Install Docker Desktop/Engine.<br>2. Run `docker run hello-world`.<br>3. Pull `nginx` image.<br>4. Run nginx container exposing port 8080.", resources: ["Docker Get Started"], startDate: "2025-02-17" },
+            { day: 18, phase: 1, topic: "Containerization", title: "Docker Commands", theory: "Lifecycle: run, stop, ps, rm, images, exec.", practical: "1. Run an ubuntu container in detached mode `-d`.<br>2. `docker exec -it <id> bash` to go inside.<br>3. Create a file inside.<br>4. Stop and remove container.", resources: ["Docker Cheat Sheet"], startDate: "2025-02-18" },
+            { day: 19, phase: 1, topic: "Containerization", title: "The Dockerfile", theory: "Building images. Instructions: FROM, RUN, COPY, CMD.", practical: "1. Create a simple Python script.<br>2. Write Dockerfile to package it.<br>3. `docker build -t my-python-app .`.<br>4. Run your new image.", resources: ["Docker Docs"], startDate: "2025-02-19" },
+            { day: 20, phase: 1, topic: "Containerization", title: "Docker Volumes & Networks", theory: "Persistence and communication. Bind mounts.", practical: "1. Run nginx with a volume mapping an HTML file from host to container.<br>2. Modify host file, see change in browser.<br>3. Connect two containers on a custom bridge network.", resources: ["Roadmap PDF Pg 12"], startDate: "2025-02-20" },
+            { day: 21, phase: 1, topic: "Containerization", title: "Docker Compose", theory: "Multi-container apps. YAML syntax.", practical: "1. Create `docker-compose.yml`.<br>2. Define services: Web (Python) and DB (Redis).<br>3. `docker-compose up`.<br>4. Verify they can talk to each other.", resources: ["Awesome Compose"], startDate: "2025-02-21" },
+            { day: 22, phase: 1, topic: "Cloud (AWS)", title: "Cloud Basics & IAM", theory: "Regions, AZs, Shared Responsibility Model. IAM Users/Roles.", practical: "1. Create AWS Free Tier account.<br>2. Create an IAM user with Admin access (Don't use root!).<br>3. Set up MFA.<br>4. Configure AWS CLI locally.", resources: ["AWS Free Tier"], startDate: "2025-02-22" },
+            { day: 23, phase: 1, topic: "Cloud (AWS)", title: "EC2 - Compute", theory: "Virtual Machines in cloud. Instance types, Security Groups.", practical: "1. Launch t2.micro EC2 (Linux).<br>2. Create Key Pair.<br>3. SSH into it.<br>4. Install Apache and verify default page.", resources: ["AWS EC2 Docs"], startDate: "2025-02-23" },
+            { day: 24, phase: 1, topic: "Cloud (AWS)", title: "S3 - Storage", theory: "Object storage. Buckets, Policies.", practical: "1. Create S3 bucket.<br>2. Upload HTML file via Console.<br>3. Upload via AWS CLI.<br>4. Enable Static Website Hosting on bucket.", resources: ["AWS S3 Docs"], startDate: "2025-02-24" },
+            { day: 25, phase: 1, topic: "Cloud (AWS)", title: "VPC Basics", theory: "Networking in Cloud. VPC, Subnet, Internet Gateway.", practical: "1. Create a custom VPC.<br>2. Create a Public Subnet.<br>3. Attach Internet Gateway.<br>4. Launch EC2 in this specific subnet.", resources: ["AWS VPC Wizard"], startDate: "2025-02-25" },
+            { day: 26, phase: 1, topic: "Cloud (AWS)", title: "RDS - Database", theory: "Managed SQL. EC2 vs RDS.", practical: "1. Launch Free Tier MySQL RDS.<br>2. Connect to it from your local machine (MySQL Workbench) or your EC2 instance.", resources: ["AWS RDS"], startDate: "2025-02-26" },
+            { day: 27, phase: 1, topic: "Review", title: "Prep for Milestone", theory: "Review Docker and AWS EC2.", practical: "Prepare the Python app from Day 19 for deployment.", resources: ["Review Notes"], startDate: "2025-02-27" },
+            { day: 28, phase: 1, topic: "MILESTONE 1", title: "Deploy to Cloud", theory: "The 'Hello World' of DevOps.", practical: "🔥 **CHALLENGE:**<br>1. Take your Dockerized Python App.<br>2. Push image to Docker Hub.<br>3. SSH into AWS EC2.<br>4. Install Docker on EC2.<br>5. Run your container on EC2.<br>6. Post on LinkedIn: 'I deployed a dockerized app to AWS!'", resources: ["LinkedIn"], startDate: "2025-02-28" },
+
+            // PHASE 2: THE ENGINE (Days 29-59)
+            { day: 29, phase: 2, topic: "CI/CD", title: "CI/CD Concepts", theory: "Continuous Integration vs Deployment. Pipelines.", practical: "1. Research GitHub Actions vs Jenkins.<br>2. Draw a pipeline diagram on paper (Code -> Test -> Build -> Deploy).", resources: ["GitLab CI/CD Guide"], startDate: "2025-03-01" },
+            { day: 30, phase: 2, topic: "CI/CD", title: "GitHub Actions Intro", theory: "Workflows, YAML, Triggers.", practical: "1. Create `.github/workflows/main.yml`.<br>2. Trigger on push.<br>3. Step 1: Echo 'Hello CI'.", resources: ["GitHub Actions Docs"], startDate: "2025-03-02" },
+            { day: 31, phase: 2, topic: "CI/CD", title: "Building in CI", theory: "Runners, Environments.", practical: "1. Update workflow to checkout code.<br>2. Set up Python env.<br>3. Install dependencies (`pip install`).<br>4. Run a dummy test script.", resources: ["Roadmap PDF Pg 13"], startDate: "2025-03-03" },
+            { day: 32, phase: 2, topic: "CI/CD", title: "Docker in CI", theory: "Building images automatically.", practical: "1. Add step to build Docker image in CI.<br>2. Login to Docker Hub (use GitHub Secrets).<br>3. Push image to Docker Hub on success.", resources: ["Docker Build Push Action"], startDate: "2025-03-04" },
+            { day: 33, phase: 2, topic: "CI/CD", title: "CD - Deployment", theory: "Connecting CI to Server.", practical: "1. (Simulated) Write a step that uses SSH action to connect to EC2.<br>2. Command: `docker pull ... && docker run ...`.", resources: ["Appleboy SSH Action"], startDate: "2025-03-05" },
+            { day: 34, phase: 2, topic: "CI/CD", title: "Jenkins Basics", theory: "Classic CI tool. Master/Agent.", practical: "1. Run Jenkins in Docker locally.<br>2. Access UI.<br>3. Create a 'Freestyle' job to pull git repo.", resources: ["Jenkins.io"], startDate: "2025-03-06" },
+            { day: 35, phase: 2, topic: "CI/CD", title: "Jenkins Pipelines", theory: "Jenkinsfile (Declarative).", practical: "1. Create Jenkinsfile.<br>2. Define stages: Build, Test.<br>3. Run pipeline.", resources: ["Jenkins Pipeline"], startDate: "2025-03-07" },
+            { day: 36, phase: 2, topic: "Orchestration (K8s)", title: "K8s Architecture", theory: "Master vs Worker Nodes. API Server, Etcd, Kubelet.", practical: "1. Install `kubectl`.<br>2. Install `minikube` or `kind`.<br>3. Start cluster: `minikube start`.", resources: ["Kubernetes.io"], startDate: "2025-03-08" },
+            { day: 37, phase: 2, topic: "Orchestration (K8s)", title: "Pods", theory: "Atomic unit. Ephemeral nature.", practical: "1. Create `pod.yaml`.<br>2. Run nginx pod.<br>3. `kubectl get pods`.<br>4. `kubectl describe pod ...`.", resources: ["K8s Cheatsheet"], startDate: "2025-03-09" },
+            { day: 38, phase: 2, topic: "Orchestration (K8s)", title: "ReplicaSets & Deployments", theory: "Scaling and Self-healing. Desired state.", practical: "1. Create `deployment.yaml` with replicas: 3.<br>2. Apply it.<br>3. Delete a pod manually and watch K8s recreate it.", resources: ["K8s Docs"], startDate: "2025-03-10" },
+            { day: 39, phase: 2, topic: "Orchestration (K8s)", title: "Services (Networking)", theory: "Exposing apps. ClusterIP, NodePort, LoadBalancer.", practical: "1. Create `service.yaml` (NodePort).<br>2. Expose your deployment.<br>3. Access app via `minikube ip:nodeport`.", resources: ["Roadmap PDF Pg 14"], startDate: "2025-03-11" },
+            { day: 40, phase: 2, topic: "Orchestration (K8s)", title: "Declarative Management", theory: "Imperative vs Declarative.", practical: "1. Update deployment image version in YAML.<br>2. `kubectl apply -f ...`.<br>3. Watch rolling update.", resources: ["K8s Patterns"], startDate: "2025-03-12" },
+            { day: 41, phase: 2, topic: "Orchestration (K8s)", title: "ConfigMaps & Secrets", theory: "Decoupling config from code.", practical: "1. Create ConfigMap (env vars).<br>2. Create Secret (password).<br>3. Inject them into Pod as environment variables.", resources: ["K8s Docs"], startDate: "2025-03-13" },
+            { day: 42, phase: 2, topic: "Orchestration (K8s)", title: "K8s Review", theory: "Consolidate K8s knowledge.", practical: "Deploy a full stack app (Frontend + Backend + DB) using 3 deployments and 3 services on Minikube.", resources: ["K8s Examples"], startDate: "2025-03-14" },
+            { day: 43, phase: 2, topic: "IaC (Terraform)", title: "Intro to IaC", theory: "Infrastructure as Code. Providers, HCL syntax.", practical: "1. Install Terraform.<br>2. Create `main.tf`.<br>3. Configure AWS provider.", resources: ["HashiCorp Learn"], startDate: "2025-03-15" },
+            { day: 44, phase: 2, topic: "IaC (Terraform)", title: "Basic Resources", theory: "Defining resources.", practical: "1. Define an AWS EC2 instance in HCL.<br>2. `terraform init`.<br>3. `terraform plan`.<br>4. `terraform apply` (Create real infra!).", resources: ["Terraform Registry"], startDate: "2025-03-16" },
+            { day: 45, phase: 2, topic: "IaC (Terraform)", title: "State Management", theory: "terraform.tfstate. Tracking reality.", practical: "1. Change instance type in code.<br>2. Apply again (Update).<br>3. Inspect `terraform.tfstate` file (DO NOT EDIT MANUALLY).", resources: ["Terraform State"], startDate: "2025-03-17" },
+            { day: 46, phase: 2, topic: "IaC (Terraform)", title: "Variables & Outputs", theory: "Reusability.", practical: "1. Create `variables.tf` (region, instance_type).<br>2. Create `outputs.tf` (Instance IP).<br>3. Use variables in `main.tf`.", resources: ["Roadmap PDF Pg 17"], startDate: "2025-03-18" },
+            { day: 47, phase: 2, topic: "IaC (Terraform)", title: "Modules", theory: "Don't Repeat Yourself (DRY).", practical: "1. Use a pre-built module from registry (e.g., VPC module).<br>2. Deploy a VPC using the module.", resources: ["Terraform Modules"], startDate: "2025-03-19" },
+            { day: 48, phase: 2, topic: "IaC (Terraform)", title: "Remote State", theory: "Team collaboration. S3 Backend.", practical: "1. Config S3 backend in `terraform.tf`.<br>2. Migrate local state to S3.<br>3. `terraform destroy` to clean up.", resources: ["Terraform Backends"], startDate: "2025-03-20" },
+            { day: 49, phase: 2, topic: "IaC (Terraform)", title: "Terraform Review", theory: "Drift detection.", practical: "Modify an AWS tag manually in console. Run `terraform plan` to see if Terraform detects the drift.", resources: ["Terraform Best Practices"], startDate: "2025-03-21" },
+            { day: 50, phase: 2, topic: "Config Mgmt (Ansible)", title: "Ansible Basics", theory: "Agentless configuration. Inventory, Playbooks.", practical: "1. Install Ansible.<br>2. Create inventory file (hosts).<br>3. Ping hosts: `ansible all -m ping`.", resources: ["Ansible Docs"], startDate: "2025-03-22" },
+            { day: 51, phase: 2, topic: "Config Mgmt (Ansible)", title: "Playbooks", theory: "YAML automation.", practical: "1. Write playbook to install Nginx and start service.<br>2. Run against local VM or EC2.", resources: ["Ansible Examples"], startDate: "2025-03-23" },
+            { day: 52, phase: 2, topic: "Config Mgmt (Ansible)", title: "Roles", theory: "Organizing playbooks.", practical: "Structure your Nginx playbook into a Role (tasks, handlers, vars).", resources: ["Ansible Galaxy"], startDate: "2025-03-24" },
+            { day: 53, phase: 2, topic: "DevOps Review", title: "Connecting the Dots", theory: "How git, CI/CD, Terraform, and K8s fit.", practical: "Sketch the flow of the final project on Day 59.", resources: ["Review"], startDate: "2025-03-25" },
+            { day: 54, phase: 2, topic: "Project Prep", title: "Environment Setup", theory: "Preparation.", practical: "Clean up AWS account. Ensure local tools are updated. Setup GitHub Repo for 'Cool Project'.", resources: ["Self"], startDate: "2025-03-26" },
+            { day: 55, phase: 2, topic: "Project Prep", title: "App Logic", theory: "Simple code.", practical: "Create a simple API (Python/Node) that connects to a DB. Dockerize it.", resources: ["GitHub"], startDate: "2025-03-27" },
+            { day: 56, phase: 2, topic: "Project Prep", title: "Infra Logic", theory: "IaC.", practical: "Write Terraform to spin up a small K8s cluster (EKS) or just EC2s.", resources: ["Terraform EKS"], startDate: "2025-03-28" },
+            { day: 57, phase: 2, topic: "Project Prep", title: "Pipeline Logic", theory: "CI.", practical: "Write GitHub Action to build image and push to registry.", resources: ["GH Actions"], startDate: "2025-03-29" },
+            { day: 58, phase: 2, topic: "MILESTONE 2", title: "Cool Project - Part 1", theory: "Deployment.", practical: "Execute Terraform to build Infra. Run Pipeline to deploy app to Infra.", resources: ["Docs"], startDate: "2025-03-30" },
+            { day: 59, phase: 2, topic: "MILESTONE 2", title: "Cool Project - Part 2", theory: "Verification.", practical: "🔥 **CHALLENGE:** Access your app via Public IP. Destroy everything via Terraform. Post on LinkedIn: 'Built a CI/CD pipeline deploying to AWS with Terraform!'", resources: ["LinkedIn"], startDate: "2025-03-31" },
+            { day: 60, phase: 2, topic: "BREAK", title: "Rest Day", theory: "Take a break. You earned it.", practical: "No code today. Walk outside.", resources: ["Nature"], startDate: "2025-04-01" },
+
+            // PHASE 3: THE PROFESSIONAL (Days 61-70)
+            { day: 61, phase: 3, topic: "Monitoring", title: "Prometheus Basics", theory: "Metrics collection. Pull model. Exporters.", practical: "1. Run Prometheus in Docker.<br>2. Configure `prometheus.yml` to scrape itself.<br>3. Explore metrics at localhost:9090.", resources: ["Roadmap PDF Pg 18"], startDate: "2025-04-02" },
+            { day: 62, phase: 3, topic: "Monitoring", title: "Grafana Visualization", theory: "Dashboards.", practical: "1. Run Grafana in Docker.<br>2. Connect Prometheus as Data Source.<br>3. Create a Dashboard visualizing memory usage.", resources: ["Grafana Docs"], startDate: "2025-04-03" },
+            { day: 63, phase: 3, topic: "Monitoring", title: "App Monitoring", theory: "Instrumentation.", practical: "1. Add a metrics endpoint to your Python app (using `prometheus_client`).<br>2. Scrape it.", resources: ["Prometheus Python"], startDate: "2025-04-04" },
+            { day: 64, phase: 3, topic: "Monitoring", title: "ELK Stack Intro", theory: "Logging. Elastic, Logstash, Kibana.", practical: "Run ELK stack via Docker Compose. Send a dummy log and find it in Kibana.", resources: ["ELK Docker"], startDate: "2025-04-05" },
+            { day: 65, phase: 3, topic: "Capstone", title: "Final Integration - Design", theory: "Architecture.", practical: "Design a HA (High Availability) solution. LB -> Web Servers -> DB.", resources: ["Architecture Patterns"], startDate: "2025-04-06" },
+            { day: 66, phase: 3, topic: "Capstone", title: "Final Integration - Infra", theory: "Terraform.", practical: "Write Terraform for VPC, 2 Subnets, Security Groups, EC2.", resources: ["Terraform"], startDate: "2025-04-07" },
+            { day: 67, phase: 3, topic: "Capstone", title: "Final Integration - Config", theory: "Ansible.", practical: "Use Ansible to configure the EC2s as Web Servers.", resources: ["Ansible"], startDate: "2025-04-08" },
+            { day: 68, phase: 3, topic: "Capstone", title: "Final Integration - Ops", theory: "Monitoring.", practical: "Set up Monitoring for these servers.", resources: ["Prometheus"], startDate: "2025-04-09" },
+            { day: 69, phase: 3, topic: "Career", title: "Resume & Portfolio", theory: "Selling yourself.", practical: "1. Update Resume with keywords (Docker, K8s, AWS, Terraform).<br>2. Polish GitHub Readmes.", resources: ["Resume Tips"], startDate: "2025-04-10" },
+            { day: 70, phase: 3, topic: "THE END", title: "Final Assessment", theory: "You are ready.", practical: "🔥 **FINAL TASK:** Apply to 5 DevOps Junior roles. Post '70 Days of DevOps - COMPLETED' on LinkedIn with your GitHub portfolio link.", resources: ["LinkedIn Jobs"], startDate: "2025-04-11" }
+        ];
+
+        // --- State Management ---
+        let currentPhase = 1;
+        let selectedDay = 1;
+        let completedDays = [];
+        let dayNotes = {};
+        let timerInterval = null;
+        let timerSeconds = 0;
+        let totalStudyTime = 0;
+
+        // --- Chart Instances ---
+        let progressChartInstance = null;
+        let topicChartInstance = null;
+
+        // --- Storage API Functions ---
+        async function saveToStorage(key, value) {
+            try {
+                if (window.storage) {
+                    await window.storage.set(key, JSON.stringify(value), false);
+                } else {
+                    localStorage.setItem(key, JSON.stringify(value));
+                }
+            } catch (error) {
+                console.error('Storage error:', error);
+                localStorage.setItem(key, JSON.stringify(value));
+            }
+        }
+
+        async function loadFromStorage(key, defaultValue = null) {
+            try {
+                if (window.storage) {
+                    const result = await window.storage.get(key, false);
+                    return result ? JSON.parse(result.value) : defaultValue;
+                } else {
+                    const item = localStorage.getItem(key);
+                    return item ? JSON.parse(item) : defaultValue;
+                }
+            } catch (error) {
+                console.error('Storage error:', error);
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : defaultValue;
+            }
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadData();
+            initCharts();
+            const currentDayNumber = getCurrentDayNumber();
+            selectedDay = currentDayNumber;
+            const currentDayData = devOpsData.find(d => d.day === currentDayNumber);
+            if (currentDayData) {
+                currentPhase = currentDayData.phase;
+                filterPhase(currentPhase);
+                loadDayDetail(currentDayNumber);
+            } else {
+                renderDayList(1);
+                updateDashboard();
+            }
+        });
+
+        async function loadData() {
+            completedDays = await loadFromStorage('devops-completed', []);
+            dayNotes = await loadFromStorage('devops-notes', {});
+            totalStudyTime = await loadFromStorage('devops-study-time', 0);
+        }
+
+        // --- Core Functions ---
+        function getCurrentDayNumber() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            for (let dayData of devOpsData) {
+                const dayDate = new Date(dayData.startDate);
+                dayDate.setHours(0, 0, 0, 0);
+                
+                if (today.getTime() === dayDate.getTime()) {
+                    return dayData.day;
+                }
+            }
+            
+            return 1;
+        }
+
+        function filterPhase(phase) {
+            currentPhase = phase;
+            document.querySelectorAll('.phase-btn').forEach(btn => {
+                btn.classList.remove('active-phase');
+                btn.classList.add('glass-light');
+            });
+            const activeBtn = document.getElementById(`btn-phase-${phase}`);
+            activeBtn.classList.add('active-phase');
+            activeBtn.classList.remove('glass-light');
+            
+            renderDayList(phase);
+        }
+
+        function renderDayList(phase) {
+            const listContainer = document.getElementById('day-list');
+            listContainer.innerHTML = '';
+            
+            const phaseDays = devOpsData.filter(d => d.phase === phase);
+            const currentDayNumber = getCurrentDayNumber();
+            
+            phaseDays.forEach(data => {
+                const isCompleted = completedDays.includes(data.day);
+                const isSelected = selectedDay === data.day;
+                const isCurrentDay = data.day === currentDayNumber;
+                
+                const dayEl = document.createElement('div');
+                dayEl.className = `day-node p-3 rounded-lg border flex items-center justify-between ${
+                    isSelected ? 'active' : 'glass-light'
+                } ${isCompleted ? 'completed' : ''} ${isCurrentDay ? 'current-day border-orange-400' : 'border-slate-600/50'}`;
+                dayEl.onclick = () => {
+                    loadDayDetail(data.day);
+                    renderDayList(phase);
+                };
+
+                const icon = isCompleted ? '✓' : (isCurrentDay ? '📍' : data.day);
+                const iconClass = isCompleted ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 
+                                 (isCurrentDay ? 'bg-orange-500/20 text-orange-400 border-orange-500/30' :
+                                 (isSelected ? 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30' : 'bg-slate-700/30 text-slate-400 border-slate-600/30'));
+
+                dayEl.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden flex-1">
+                        <div class="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center text-xs font-bold border ${iconClass} mono">
+                            ${icon}
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-sm font-medium text-slate-200 truncate">${data.title}</p>
+                            <p class="text-xs text-slate-400 truncate">${data.topic}</p>
+                        </div>
+                    </div>
+                    ${isCompleted ? '<span class="text-emerald-400 text-xl flex-shrink-0">✓</span>' : ''}
+                `;
+                listContainer.appendChild(dayEl);
+            });
+        }
+
+        function loadDayDetail(day) {
+            selectedDay = day;
+            const data = devOpsData.find(d => d.day === day);
+            if (!data) return;
+
+            document.getElementById('dashboard-view').classList.add('hidden');
+            document.getElementById('daily-detail-view').classList.remove('hidden');
+
+            document.getElementById('detail-phase').textContent = `Phase ${data.phase} • ${getPhaseName(data.phase)}`;
+            document.getElementById('detail-title').textContent = `Day ${data.day}: ${data.title}`;
+            document.getElementById('detail-topic').textContent = `${data.topic}`;
+            document.getElementById('detail-theory').innerHTML = data.theory;
+            document.getElementById('detail-practical').innerHTML = data.practical;
+
+            const resList = document.getElementById('detail-resources');
+            resList.innerHTML = '';
+            data.resources.forEach(r => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="text-indigo-400 mr-2">🔗</span> <span class="text-slate-300">${r}</span>`;
+                resList.appendChild(li);
+            });
+
+            document.getElementById('mark-complete-checkbox').checked = completedDays.includes(day);
+            
+            const notes = dayNotes[day] || '';
+            document.getElementById('day-notes').value = notes;
+            
+            document.querySelector('main').scrollTop = 0;
+        }
+
+        function getPhaseName(p) {
+            if(p===1) return "Foundation";
+            if(p===2) return "Engine";
+            return "Professional";
+        }
+
+        async function toggleComplete() {
+            const checkbox = document.getElementById('mark-complete-checkbox');
+            const isChecked = checkbox.checked;
+            
+            const index = completedDays.indexOf(selectedDay);
+            if (isChecked && index === -1) {
+                completedDays.push(selectedDay);
+                createConfetti();
+                showToast('🎉 Task Complete!', 'Great job! Keep the momentum going!', 'success');
+                
+                if (selectedDay === 28 || selectedDay === 59 || selectedDay === 70) {
+                    showToast('🏆 Milestone Achieved!', `You've completed a major milestone!`, 'success');
+                }
+            } else if (!isChecked && index > -1) {
+                completedDays.splice(index, 1);
+                showToast('✓ Unmarked', 'Task marked as incomplete', 'info');
+            }
+            
+            await saveToStorage('devops-completed', completedDays);
+            updateDashboard();
+            renderDayList(currentPhase);
+        }
+
+        async function saveNotes() {
+            const notes = document.getElementById('day-notes').value;
+            dayNotes[selectedDay] = notes;
+            await saveToStorage('devops-notes', dayNotes);
+            showToast('💾 Saved', 'Your notes have been saved', 'success');
+        }
+
+        function nextDay() {
+            if (selectedDay < 70) {
+                loadDayDetail(selectedDay + 1);
+                const nextData = devOpsData.find(d => d.day === selectedDay);
+                if(nextData.phase !== currentPhase) filterPhase(nextData.phase);
+            }
+        }
+
+        function prevDay() {
+            if (selectedDay > 1) {
+                loadDayDetail(selectedDay - 1);
+                const prevData = devOpsData.find(d => d.day === selectedDay);
+                if(prevData.phase !== currentPhase) filterPhase(prevData.phase);
+            }
+        }
+
+        function updateDashboard() {
+            const count = completedDays.length;
+            const percentage = Math.round((count / 70) * 100);
+            
+            document.getElementById('days-completed-count').textContent = count;
+            document.getElementById('completion-rate').textContent = `${percentage}%`;
+            document.getElementById('days-remaining').textContent = 70 - count;
+            document.getElementById('progress-percent').textContent = `${percentage}%`;
+            
+            let milestones = 0;
+            if (completedDays.includes(28)) milestones++;
+            if (completedDays.includes(59)) milestones++;
+            if (completedDays.includes(70)) milestones++;
+            document.getElementById('milestones-hit').textContent = `${milestones} / 3`;
+            
+            const hours = Math.round((totalStudyTime / 3600) * 10) / 10;
+            document.getElementById('study-hours').textContent = `${hours}h`;
+            
+            const streak = calculateStreak();
+            document.getElementById('streak-count').textContent = streak;
+            
+            const currentDayNumber = getCurrentDayNumber();
+            document.getElementById('current-day-display').textContent = `Day ${currentDayNumber}`;
+            
+            const currentDayData = devOpsData.find(d => d.day === currentDayNumber);
+            if (currentDayData) {
+                document.getElementById('current-phase-display').textContent = getPhaseName(currentDayData.phase);
+            }
+            
+            const circumference = 2 * Math.PI * 24;
+            const offset = circumference - (percentage / 100) * circumference;
+            document.getElementById('progress-ring-circle').style.strokeDashoffset = offset;
+            
+            if (progressChartInstance) {
+                progressChartInstance.data.datasets[0].data = [count, 70 - count];
+                progressChartInstance.update();
+            }
+        }
+
+        function calculateStreak() {
+            if (completedDays.length === 0) return 0;
+            
+            const sorted = [...completedDays].sort((a, b) => b - a);
+            let streak = 1;
+            
+            for (let i = 0; i < sorted.length - 1; i++) {
+                if (sorted[i] - sorted[i + 1] === 1) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            
+            return streak;
+        }
+
+        function initCharts() {
+            const ctxProgress = document.getElementById('progressChart').getContext('2d');
+            progressChartInstance = new Chart(ctxProgress, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Completed', 'Remaining'],
+                    datasets: [{
+                        data: [completedDays.length, 70 - completedDays.length],
+                        backgroundColor: [
+                            'rgba(99, 102, 241, 0.8)',
+                            'rgba(51, 65, 85, 0.3)'
+                        ],
+                        borderColor: [
+                            'rgba(99, 102, 241, 1)',
+                            'rgba(51, 65, 85, 0.5)'
+                        ],
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#e2e8f0',
+                                padding: 15,
+                                font: { size: 12 }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+
+            const topicCounts = {};
+            devOpsData.forEach(d => {
+                const t = d.topic.split(' ')[0];
+                topicCounts[t] = (topicCounts[t] || 0) + 1;
+            });
+            
+            const ctxTopic = document.getElementById('topicChart').getContext('2d');
+            const gradient = ctxTopic.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(99, 102, 241, 0.8)');
+            gradient.addColorStop(1, 'rgba(139, 92, 246, 0.8)');
+            
+            topicChartInstance = new Chart(ctxTopic, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(topicCounts),
+                    datasets: [{
+                        label: 'Days',
+                        data: Object.values(topicCounts),
+                        backgroundColor: gradient,
+                        borderColor: 'rgba(99, 102, 241, 1)',
+                        borderWidth: 1,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(148, 163, 184, 0.1)'
+                            },
+                            ticks: {
+                                color: '#94a3b8'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#94a3b8'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Timer Functions ---
+        function startTimer() {
+            if (timerInterval) return;
+            
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                totalStudyTime++;
+                updateTimerDisplay();
+            }, 1000);
+            
+            showToast('⏱️ Timer Started', 'Focus time begins now!', 'info');
+        }
+
+        async function stopTimer() {
+            if (!timerInterval) return;
+            
+            clearInterval(timerInterval);
+            timerInterval = null;
+            await saveToStorage('devops-study-time', totalStudyTime);
+            updateDashboard();
+            
+            showToast('⏹️ Timer Stopped', 'Great session! Time saved.', 'info');
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            document.getElementById('timer-display').textContent = 
+                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        // --- Utility Functions ---
+        function jumpToCurrentDay() {
+            const currentDayNumber = getCurrentDayNumber();
+            const currentDayData = devOpsData.find(d => d.day === currentDayNumber);
+            if (currentDayData) {
+                filterPhase(currentDayData.phase);
+                loadDayDetail(currentDayNumber);
+            }
+        }
+
+        function showStats() {
+            const count = completedDays.length;
+            const percentage = Math.round((count / 70) * 100);
+            const streak = calculateStreak();
+            const hours = Math.round((totalStudyTime / 3600) * 10) / 10;
+            
+            showToast('📊 Your Stats', 
+                `Completion: ${percentage}% | Streak: ${streak} days | Study Time: ${hours}h`, 
+                'info');
+        }
+
+        async function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                completedDays = [];
+                dayNotes = {};
+                timerSeconds = 0;
+                totalStudyTime = 0;
+                
+                await saveToStorage('devops-completed', []);
+                await saveToStorage('devops-notes', {});
+                await saveToStorage('devops-study-time', 0);
+                
+                updateDashboard();
+                renderDayList(currentPhase);
+                showToast('🔄 Reset Complete', 'All progress has been cleared', 'info');
+            }
+        }
+
+        function exportProgress() {
+            const data = {
+                completedDays,
+                dayNotes,
+                totalStudyTime,
+                exportDate: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `devops-sprint-progress-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showToast('💾 Exported', 'Progress downloaded successfully', 'success');
+        }
+
+        function showToast(title, message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            const titleEl = document.getElementById('toast-title');
+            const messageEl = document.getElementById('toast-message');
+            
+            const icons = { success: '✓', error: '✗', info: 'ℹ' };
+            icon.textContent = icons[type] || '✓';
+            titleEl.textContent = title;
+            messageEl.textContent = message;
+            
+            toast.style.transform = 'translateY(0)';
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateY(8rem)';
+            }, 3000);
+        }
+
+        function createConfetti() {
+            const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'];
+            const confettiCount = 50;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+    </script>
+</body>
+</html>
