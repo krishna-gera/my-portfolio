@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life, Decisions & Technology Survey</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-header">
+            <h1>Life, Decisions & Technology in a Busy World</h1>
+            <p class="subtitle">An anonymous research survey on daily decisions, technology usage, and AI tools</p>
+            <div class="intro-text">
+                <p>This short survey explores how people manage daily decisions, tasks, and technology in modern life. There are no right or wrong answers.</p>
+                <p class="privacy-note">All responses are anonymous and used only for research purposes.</p>
+            </div>
+        </div>
+
+        <form id="surveyForm" action="https://docs.google.com/forms/d/e/1FAIpQLSd9ohFUhsuKsE_kV6r4692t2TgUbmvHA1Z0gmICTHAsmVm3LQ/formResponse" method="POST" target="hidden_iframe">
+            
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+                <span class="progress-text" id="progressText">0% Complete</span>
+            </div>
+
+            <!-- Section 1: Basic Details -->
+            <div class="form-section active" data-section="1">
+                <h2 class="section-title">Basic Details</h2>
+                <p class="section-description">Let's start with a few basics so we can understand your context.</p>
+
+                <div class="form-group">
+                    <label class="required">Age Group</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.261356410" value="Under 18" required>
+                            <span>Under 18</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.261356410" value="18–22">
+                            <span>18–22</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.261356410" value="23–27">
+                            <span>23–27</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.261356410" value="28–35">
+                            <span>28–35</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.261356410" value="36–45">
+                            <span>36–45</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.261356410" value="45+">
+                            <span>45+</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Gender</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.142967644" value="Male" required>
+                            <span>Male</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.142967644" value="Female">
+                            <span>Female</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.142967644" value="Non-binary">
+                            <span>Non-binary</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.142967644" value="Prefer not to say">
+                            <span>Prefer not to say</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Country / City you currently live in</label>
+                    <input type="text" name="entry.876433770" class="text-input" placeholder="e.g., New York, USA">
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Primary Occupation</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.455331503" value="Student" required data-triggers="student-section">
+                            <span>Student</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.455331503" value="Faculty / Educator" data-triggers="faculty-section">
+                            <span>Faculty / Educator</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.455331503" value="Working Professional (Tech field)" data-triggers="tech-section">
+                            <span>Working Professional (Tech field)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.455331503" value="Working Professional (Non-tech)" data-triggers="nontech-section">
+                            <span>Working Professional (Non-tech)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.455331503" value="Currently not working">
+                            <span>Currently not working</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-next" onclick="nextSection()">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 2: Student Life (Conditional) -->
+            <div class="form-section conditional-section" id="student-section" data-section="2">
+                <h2 class="section-title">Student Life</h2>
+                <p class="section-description">These questions focus on your academic and daily student life.</p>
+
+                <div class="form-group">
+                    <label class="required">Level of study</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1054247355" value="School (9–12)">
+                            <span>School (9–12)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1054247355" value="Undergraduate">
+                            <span>Undergraduate</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1054247355" value="Postgraduate">
+                            <span>Postgraduate</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1054247355" value="PhD / Research">
+                            <span>PhD / Research</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Field of study / major</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.347329612" value="Engineering / Technology">
+                            <span>Engineering / Technology</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.347329612" value="Medical / Health Sciences">
+                            <span>Medical / Health Sciences</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.347329612" value="Business / Management">
+                            <span>Business / Management</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.347329612" value="Arts / Humanities">
+                            <span>Arts / Humanities</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.347329612" value="Science (Pure / Applied)">
+                            <span>Science (Pure / Applied)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.347329612" value="Law">
+                            <span>Law</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.347329612" value="Design / Architecture">
+                            <span>Design / Architecture</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.347329612" value="__other_option__" data-other="true">
+                            <span>Other</span>
+                        </label>
+                    </div>
+                    <input type="text" name="entry.347329612.other_option_response" class="text-input other-input" placeholder="Please specify" style="display:none;">
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Does your field require heavy mental focus or long study hours?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.920768336" value="Yes, very much">
+                            <span>Yes, very much</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.920768336" value="Yes, to some extent">
+                            <span>Yes, to some extent</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.920768336" value="Not really">
+                            <span>Not really</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.920768336" value="Depends on the day">
+                            <span>Depends on the day</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">On an average weekday, how busy do you feel?</label>
+                    <div class="scale-group">
+                        <div class="scale-labels">
+                            <span>Very relaxed</span>
+                            <span>Extremely overloaded</span>
+                        </div>
+                        <div class="scale-options">
+                            <label class="scale-label">
+                                <input type="radio" name="entry.1405260298" value="1">
+                                <span>1</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.1405260298" value="2">
+                                <span>2</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.1405260298" value="3">
+                                <span>3</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.1405260298" value="4">
+                                <span>4</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.1405260298" value="5">
+                                <span>5</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">What stresses you the most as a student?</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.541364264" value="Exams and deadlines">
+                            <span>Exams and deadlines</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.541364264" value="Too many subjects/tasks">
+                            <span>Too many subjects/tasks</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.541364264" value="Lack of clarity on what to study first">
+                            <span>Lack of clarity on what to study first</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.541364264" value="Guilt while taking breaks">
+                            <span>Guilt while taking breaks</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.541364264" value="Time management">
+                            <span>Time management</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.541364264" value="Future career pressure">
+                            <span>Future career pressure</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.541364264" value="__other_option__" data-other="true">
+                            <span>Other</span>
+                        </label>
+                    </div>
+                    <input type="text" name="entry.541364264.other_option_response" class="text-input other-input" placeholder="Please specify" style="display:none;">
+                </div>
+
+                <div class="form-group">
+                    <label>How often do you feel confused about what to do next when you sit down to study?</label>
+                    <div class="scale-group">
+                        <div class="scale-labels">
+                            <span>Almost never</span>
+                            <span>Very often</span>
+                        </div>
+                        <div class="scale-options">
+                            <label class="scale-label">
+                                <input type="radio" name="entry.418627983" value="1">
+                                <span>1</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.418627983" value="2">
+                                <span>2</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.418627983" value="3">
+                                <span>3</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.418627983" value="4">
+                                <span>4</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.418627983" value="5">
+                                <span>5</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">When multiple tasks are pending, what usually happens?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.515781097" value="I pick one quickly and start">
+                            <span>I pick one quickly and start</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.515781097" value="I overthink and delay starting">
+                            <span>I overthink and delay starting</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.515781097" value="I jump between tasks">
+                            <span>I jump between tasks</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.515781097" value="I procrastinate or avoid all">
+                            <span>I procrastinate or avoid all</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.515781097" value="Depends on my mood/energy">
+                            <span>Depends on my mood/energy</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-prev" onclick="prevSection()">Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextSection()">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 3: Faculty / Educator (Conditional) -->
+            <div class="form-section conditional-section" id="faculty-section" data-section="3">
+                <h2 class="section-title">Faculty / Educator</h2>
+
+                <div class="form-group">
+                    <label class="required">Your primary role</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.653442297" value="School teacher">
+                            <span>School teacher</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.653442297" value="College / University faculty">
+                            <span>College / University faculty</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.653442297" value="Academic researcher / Research-oriented faculty">
+                            <span>Academic researcher / Research-oriented faculty</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.653442297" value="Coaching / tutoring / Training professional">
+                            <span>Coaching / tutoring / Training professional</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Primary subject / field you teach</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.936315012" value="Engineering / Technology">
+                            <span>Engineering / Technology</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.936315012" value="Science">
+                            <span>Science</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.936315012" value="Mathematics">
+                            <span>Mathematics</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.936315012" value="Medical / Health Sciences">
+                            <span>Medical / Health Sciences</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.936315012" value="Arts / Humanities">
+                            <span>Arts / Humanities</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.936315012" value="Business / Management">
+                            <span>Business / Management</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.936315012" value="Law">
+                            <span>Law</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.936315012" value="School-level multiple subjects">
+                            <span>School-level multiple subjects</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.936315012" value="__other_option__" data-other="true">
+                            <span>Other</span>
+                        </label>
+                    </div>
+                    <input type="text" name="entry.936315012.other_option_response" class="text-input other-input" placeholder="Please specify" style="display:none;">
+                </div>
+
+                <div class="form-group">
+                    <label class="required">What takes most of your mental energy?</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.1607171206" value="Teaching & preparation">
+                            <span>Teaching & preparation</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.1607171206" value="Administrative work">
+                            <span>Administrative work</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.1607171206" value="Student management">
+                            <span>Student management</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.1607171206" value="Research & publications">
+                            <span>Research & publications</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.1607171206" value="Balancing personal life">
+                            <span>Balancing personal life</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.1607171206" value="Technology overload">
+                            <span>Technology overload</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">How often do you feel mentally exhausted at the end of the day?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.783515880" value="Rarely">
+                            <span>Rarely</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.783515880" value="Sometimes">
+                            <span>Sometimes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.783515880" value="Often">
+                            <span>Often</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.783515880" value="Almost every day">
+                            <span>Almost every day</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you feel current digital tools actually reduce your workload?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1941084779" value="Yes, significantly">
+                            <span>Yes, significantly</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1941084779" value="Slightly">
+                            <span>Slightly</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1941084779" value="Neutral">
+                            <span>Neutral</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1941084779" value="Not really">
+                            <span>Not really</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1941084779" value="They increase it">
+                            <span>They increase it</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-prev" onclick="prevSection()">Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextSection()">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 4: Working Professional (Tech) (Conditional) -->
+            <div class="form-section conditional-section" id="tech-section" data-section="4">
+                <h2 class="section-title">Working Professional (Tech)</h2>
+
+                <div class="form-group">
+                    <label class="required">Your experience level</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.828343110" value="Student / Intern">
+                            <span>Student / Intern</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.828343110" value="0–2 years">
+                            <span>0–2 years</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.828343110" value="3–5 years">
+                            <span>3–5 years</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.828343110" value="6–10 years">
+                            <span>6–10 years</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.828343110" value="10+ years">
+                            <span>10+ years</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Your work style</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1236239186" value="Mostly fixed schedule">
+                            <span>Mostly fixed schedule</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1236239186" value="Flexible hours">
+                            <span>Flexible hours</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1236239186" value="Hybrid">
+                            <span>Hybrid</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1236239186" value="Fully remote">
+                            <span>Fully remote</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1236239186" value="Highly unpredictable">
+                            <span>Highly unpredictable</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Biggest daily challenge</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.84992086" value="Task prioritization">
+                            <span>Task prioritization</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.84992086" value="Context switching">
+                            <span>Context switching</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.84992086" value="Mental fatigue">
+                            <span>Mental fatigue</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.84992086" value="Meetings overload">
+                            <span>Meetings overload</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.84992086" value="Burnout">
+                            <span>Burnout</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.84992086" value="Keeping focus">
+                            <span>Keeping focus</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.84992086" value="Decision overload">
+                            <span>Decision overload</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">How often do you end the day feeling you worked a lot but achieved less?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.711556408" value="Rarely">
+                            <span>Rarely</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.711556408" value="Sometimes">
+                            <span>Sometimes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.711556408" value="Often">
+                            <span>Often</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.711556408" value="Very often">
+                            <span>Very often</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-prev" onclick="prevSection()">Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextSection()">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 5: Working Professional (Non-Tech) (Conditional) -->
+            <div class="form-section conditional-section" id="nontech-section" data-section="5">
+                <h2 class="section-title">Working Professional (Non-Tech)</h2>
+
+                <div class="form-group">
+                    <label class="required">Your field</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1698841182" value="Business / Management">
+                            <span>Business / Management</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1698841182" value="Healthcare">
+                            <span>Healthcare</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1698841182" value="Government">
+                            <span>Government</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1698841182" value="Creative / Media">
+                            <span>Creative / Media</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1698841182" value="Sales / Marketing">
+                            <span>Sales / Marketing</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1698841182" value="Operations / Logistics">
+                            <span>Operations / Logistics</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1698841182" value="__other_option__" data-other="true">
+                            <span>Other</span>
+                        </label>
+                    </div>
+                    <input type="text" name="entry.1698841182.other_option_response" class="text-input other-input" placeholder="Please specify" style="display:none;">
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Nature of your daily work</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.414451394" value="Mostly physical">
+                            <span>Mostly physical</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.414451394" value="Mostly mental">
+                            <span>Mostly mental</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.414451394" value="Mixed">
+                            <span>Mixed</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">What drains your energy the most?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1527668128" value="Decisions">
+                            <span>Decisions</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1527668128" value="People interaction">
+                            <span>People interaction</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1527668128" value="Long hours">
+                            <span>Long hours</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1527668128" value="Unclear priorities">
+                            <span>Unclear priorities</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1527668128" value="Technology/tools">
+                            <span>Technology/tools</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1527668128" value="Personal responsibilities">
+                            <span>Personal responsibilities</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-prev" onclick="prevSection()">Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextSection()">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 6: AI Tools & AI Fatigue (Common for all) -->
+            <div class="form-section" data-section="6">
+                <h2 class="section-title">AI Tools & AI Fatigue</h2>
+
+                <div class="form-group">
+                    <label class="required">How often do you use AI tools (ChatGPT, Copilot, Gemini, etc.)?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.348761205" value="Daily" required>
+                            <span>Daily</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.348761205" value="Few times a week">
+                            <span>Few times a week</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.348761205" value="Occasionally">
+                            <span>Occasionally</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.348761205" value="Rarely">
+                            <span>Rarely</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.348761205" value="Never">
+                            <span>Never</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Apart from common AI tools, do you use any other AI tools?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1852382847" value="Yes, frequently" required>
+                            <span>Yes, frequently</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1852382847" value="Yes, occasionally">
+                            <span>Yes, occasionally</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1852382847" value="Tried a few but didn't continue">
+                            <span>Tried a few but didn't continue</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1852382847" value="No, I stick to common ones">
+                            <span>No, I stick to common ones</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1852382847" value="I avoid AI tools in general">
+                            <span>I avoid AI tools in general</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">How often are you searching for a better or more specific AI tool for your tasks?</label>
+                    <div class="scale-group">
+                        <div class="scale-labels">
+                            <span>Rarely</span>
+                            <span>Very Often</span>
+                        </div>
+                        <div class="scale-options">
+                            <label class="scale-label">
+                                <input type="radio" name="entry.627799832" value="1" required>
+                                <span>1</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.627799832" value="2">
+                                <span>2</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.627799832" value="3">
+                                <span>3</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.627799832" value="4">
+                                <span>4</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.627799832" value="5">
+                                <span>5</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Overall, how do you feel about AI tools today?</label>
+                    <div class="scale-group">
+                        <div class="scale-labels">
+                            <span>Very annoyed</span>
+                            <span>Very helpful</span>
+                        </div>
+                        <div class="scale-options">
+                            <label class="scale-label">
+                                <input type="radio" name="entry.349347602" value="1" required>
+                                <span>1</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.349347602" value="2">
+                                <span>2</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.349347602" value="3">
+                                <span>3</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.349347602" value="4">
+                                <span>4</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.349347602" value="5">
+                                <span>5</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">What annoys you the most about AI tools?</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.728439644" value="Too many tools to choose from">
+                            <span>Too many tools to choose from</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.728439644" value="Too generic responses">
+                            <span>Too generic responses</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.728439644" value="Over-hyped promises">
+                            <span>Over-hyped promises</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.728439644" value="Privacy concerns">
+                            <span>Privacy concerns</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.728439644" value="Too complex to use">
+                            <span>Too complex to use</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.728439644" value="Makes me feel dependent">
+                            <span>Makes me feel dependent</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="entry.728439644" value="Nothing really">
+                            <span>Nothing really</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Do you feel AI currently reduces your mental load?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1827028574" value="Yes, clearly" required>
+                            <span>Yes, clearly</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1827028574" value="A little">
+                            <span>A little</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1827028574" value="Neutral">
+                            <span>Neutral</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1827028574" value="Not really">
+                            <span>Not really</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1827028574" value="It adds more load">
+                            <span>It adds more load</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Your honest opinion about AI's future</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1223327492" value="Very positive" required>
+                            <span>Very positive</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1223327492" value="Cautiously optimistic">
+                            <span>Cautiously optimistic</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1223327492" value="Neutral">
+                            <span>Neutral</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1223327492" value="Slightly worried">
+                            <span>Slightly worried</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1223327492" value="Very worried">
+                            <span>Very worried</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-prev" onclick="prevSection()">Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextSection()">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 7: Time, Decisions & Confusion -->
+            <div class="form-section" data-section="7">
+                <h2 class="section-title">Time, Decisions & Confusion</h2>
+
+                <div class="form-group">
+                    <label class="required">On an average day, how much time do you spend just deciding what to do next?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.147820745" value="Less than 5 minutes" required>
+                            <span>Less than 5 minutes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.147820745" value="5–15 minutes">
+                            <span>5–15 minutes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.147820745" value="15–30 minutes">
+                            <span>15–30 minutes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.147820745" value="More than 30 minutes">
+                            <span>More than 30 minutes</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">How often do you feel mentally "stuck" even when you have time?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1608423096" value="Almost never" required>
+                            <span>Almost never</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1608423096" value="Sometimes">
+                            <span>Sometimes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1608423096" value="Often">
+                            <span>Often</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1608423096" value="Very often">
+                            <span>Very often</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">How much time do you spend deciding what to wear on a normal day?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1662480650" value="Less than 2 minutes" required>
+                            <span>Less than 2 minutes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1662480650" value="2–5 minutes">
+                            <span>2–5 minutes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1662480650" value="5–10 minutes">
+                            <span>5–10 minutes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1662480650" value="More than 10 minutes">
+                            <span>More than 10 minutes</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Does your mood/energy affect your decisions?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.849167127" value="Yes, a lot" required>
+                            <span>Yes, a lot</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.849167127" value="Yes, sometimes">
+                            <span>Yes, sometimes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.849167127" value="Not much">
+                            <span>Not much</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.849167127" value="Not at all">
+                            <span>Not at all</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">What do you usually need most in such moments?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.72237547" value="Clear next step" required>
+                            <span>Clear next step</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.72237547" value="Motivation">
+                            <span>Motivation</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.72237547" value="Rest suggestion">
+                            <span>Rest suggestion</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.72237547" value="Time management">
+                            <span>Time management</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.72237547" value="Someone/something to guide me">
+                            <span>Someone/something to guide me</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.72237547" value="I usually figure it out myself">
+                            <span>I usually figure it out myself</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-prev" onclick="prevSection()">Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextSection()">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 8: Technology Ecosystem -->
+            <div class="form-section" data-section="8">
+                <h2 class="section-title">Technology Ecosystem</h2>
+
+                <div class="form-group">
+                    <label class="required">Smartphone you primarily use</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1323074525" value="Android" required>
+                            <span>Android</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1323074525" value="iPhone">
+                            <span>iPhone</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1323074525" value="Both">
+                            <span>Both</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you use a smartwatch or fitness band?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1586762983" value="Apple Watch">
+                            <span>Apple Watch</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1586762983" value="Wear OS (Samsung, Pixel, etc.)">
+                            <span>Wear OS (Samsung, Pixel, etc.)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1586762983" value="Fitness band (Mi, Fitbit, etc.)">
+                            <span>Fitness band (Mi, Fitbit, etc.)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1586762983" value="Non-smart watch">
+                            <span>Non-smart watch</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1586762983" value="No watch">
+                            <span>No watch</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Do you wear any smart ring</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1771696539" value="Yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1771696539" value="No">
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Voice assistants you've used</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.78799094" value="Google Assistant" required>
+                            <span>Google Assistant</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.78799094" value="Siri">
+                            <span>Siri</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.78799094" value="Alexa">
+                            <span>Alexa</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.78799094" value="None">
+                            <span>None</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Smart home devices you use</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1651492350" value="Smart TV">
+                            <span>Smart TV</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1651492350" value="Smart speakers">
+                            <span>Smart speakers</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1651492350" value="Smart lights">
+                            <span>Smart lights</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1651492350" value="Smart CCTV">
+                            <span>Smart CCTV</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1651492350" value="Smart plugs">
+                            <span>Smart plugs</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1651492350" value="None">
+                            <span>None</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>How comfortable are you with smart/connected devices?</label>
+                    <div class="scale-group">
+                        <div class="scale-labels">
+                            <span>Not comfortable at all</span>
+                            <span>Very comfortable</span>
+                        </div>
+                        <div class="scale-options">
+                            <label class="scale-label">
+                                <input type="radio" name="entry.709579799" value="1">
+                                <span>1</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.709579799" value="2">
+                                <span>2</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.709579799" value="3">
+                                <span>3</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.709579799" value="4">
+                                <span>4</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.709579799" value="5">
+                                <span>5</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-prev" onclick="prevSection()">Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextSection()">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 9: Trust, Privacy & Control -->
+            <div class="form-section" data-section="9">
+                <h2 class="section-title">Trust, Privacy & Control</h2>
+
+                <div class="form-group">
+                    <label class="required">How important is data privacy to you?</label>
+                    <div class="scale-group">
+                        <div class="scale-labels">
+                            <span>Not very important</span>
+                            <span>Extremely important</span>
+                        </div>
+                        <div class="scale-options">
+                            <label class="scale-label">
+                                <input type="radio" name="entry.1685988850" value="1" required>
+                                <span>1</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.1685988850" value="2">
+                                <span>2</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.1685988850" value="3">
+                                <span>3</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.1685988850" value="4">
+                                <span>4</span>
+                            </label>
+                            <label class="scale-label">
+                                <input type="radio" name="entry.1685988850" value="5">
+                                <span>5</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Would you trust a tool that works fully on your device without uploading data?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1199621231" value="Yes, completely" required>
+                            <span>Yes, completely</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1199621231" value="Mostly yes">
+                            <span>Mostly yes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1199621231" value="Not sure">
+                            <span>Not sure</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.1199621231" value="Probably not">
+                            <span>Probably not</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-prev" onclick="prevSection()">Previous</button>
+                    <button type="button" class="btn btn-next" onclick="nextSection()">Next</button>
+                </div>
+            </div>
+
+            <!-- Section 10: Final Thoughts -->
+            <div class="form-section" data-section="10">
+                <h2 class="section-title">Final Thoughts</h2>
+
+                <div class="form-group">
+                    <label>One daily problem you wish technology handled better.</label>
+                    <textarea name="entry.1433777841" class="textarea-input" rows="4" placeholder="Share your thoughts..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Any frustrations about modern digital life?</label>
+                    <textarea name="entry.342443660" class="textarea-input" rows="4" placeholder="Share your thoughts..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Would you be open to trying a new tool that reduces daily decision fatigue?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="entry.787470669" value="Yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.787470669" value="Maybe Later">
+                            <span>Maybe Later</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="entry.787470669" value="No">
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email (Optional)</label>
+                    <input type="email" name="entry.1334602359" class="text-input" placeholder="your.email@example.com">
+                </div>
+
+                <input type="hidden" name="fvv" value="1">
+                <input type="hidden" name="fbzx" value="8082847058760696476">
+                <input type="hidden" name="pageHistory" value="0,1,2,3,4,5,6,7,8,9,10">
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-prev" onclick="prevSection()">Previous</button>
+                    <button type="submit" class="btn btn-submit">Submit Survey</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Hidden iframe for form submission -->
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+        <!-- Success Message -->
+        <div id="successMessage" class="success-message" style="display:none;">
+            <div class="success-content">
+                <div class="success-icon">✓</div>
+                <h2>Thank You!</h2>
+                <p>Your response has been recorded successfully.</p>
+                <p class="success-note">We appreciate you taking the time to complete this survey.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
