@@ -8,418 +8,713 @@
 </head>
 
 <body>
-  <div class="page">
-    <header class="hero">
-      <div class="hero-inner">
-        <h1>Life, Decisions & Technology</h1>
-        <p>
-          An anonymous research survey on daily decisions, technology usage, and AI tools.
-          <br />
-          <span class="muted">No right or wrong answers. Your responses are anonymous.</span>
-        </p>
+  <div class="bg-blur"></div>
+
+  <header class="top">
+    <div class="top-inner">
+      <div class="badge">Anonymous Research Survey</div>
+      <h1>Life, Decisions & Technology in a Busy World</h1>
+      <p>
+        This short survey explores how people manage daily decisions, tasks, and technology in modern life.
+        <br />
+        <span class="muted">All responses are anonymous and used only for research purposes.</span>
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="card">
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progressBar"></div>
       </div>
-    </header>
 
-    <main class="container">
-      <div class="card">
-        <div class="progress-wrap">
-          <div class="progress-bar" id="progressBar"></div>
+      <div class="meta">
+        <div class="meta-left">
+          <div class="meta-title" id="metaTitle">Section 1 of 6</div>
+          <div class="meta-sub" id="metaSub">Basic Details</div>
         </div>
-
-        <!-- Hidden iframe to avoid CORS issues -->
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
-        <form
-          id="customForm"
-          action="https://docs.google.com/forms/d/e/1FAIpQLSd9ohFUhsuKsE_kV6r4692t2TgUbmvHA1Z0gmICTHAsmVm3LQ/formResponse"
-          method="POST"
-          target="hidden_iframe"
-        >
-
-          <!-- =======================
-               SECTION: Basic Details
-          ======================== -->
-          <section class="section active" data-section="1">
-            <h2>Basic Details</h2>
-            <p class="section-sub">Let’s start with a few basics so we can understand your context.</p>
-
-            <div class="field">
-              <label class="label">Age Group <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.261356410" value="Under 18" required> Under 18</label>
-                <label class="opt"><input type="radio" name="entry.261356410" value="18–22" required> 18–22</label>
-                <label class="opt"><input type="radio" name="entry.261356410" value="23–27" required> 23–27</label>
-                <label class="opt"><input type="radio" name="entry.261356410" value="28–35" required> 28–35</label>
-                <label class="opt"><input type="radio" name="entry.261356410" value="36–45" required> 36–45</label>
-                <label class="opt"><input type="radio" name="entry.261356410" value="45+" required> 45+</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Gender <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.142967644" value="Male" required> Male</label>
-                <label class="opt"><input type="radio" name="entry.142967644" value="Female" required> Female</label>
-                <label class="opt"><input type="radio" name="entry.142967644" value="Non-binary" required> Non-binary</label>
-                <label class="opt"><input type="radio" name="entry.142967644" value="Prefer not to say" required> Prefer not to say</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Country / City you currently live in</label>
-              <input type="text" name="entry.876433770" placeholder="e.g., Paris, France" />
-            </div>
-
-            <div class="field">
-              <label class="label">Primary Occupation <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.455331503" value="Student" required> Student</label>
-                <label class="opt"><input type="radio" name="entry.455331503" value="Faculty / Educator" required> Faculty / Educator</label>
-                <label class="opt"><input type="radio" name="entry.455331503" value="Working Professional (Tech field)" required> Working Professional (Tech field)</label>
-                <label class="opt"><input type="radio" name="entry.455331503" value="Working Professional (Non-tech)" required> Working Professional (Non-tech)</label>
-                <label class="opt"><input type="radio" name="entry.455331503" value="Currently not working" required> Currently not working</label>
-              </div>
-            </div>
-
-            <div class="nav">
-              <button type="button" class="btn primary" id="nextBtn1">Next</button>
-            </div>
-          </section>
-
-          <!-- =======================
-               SECTION: Student Life
-          ======================== -->
-          <section class="section" data-section="2" id="studentSection">
-            <h2>Student Life</h2>
-            <p class="section-sub">These questions focus on your academic and daily student life.</p>
-
-            <div class="field">
-              <label class="label">Level of study <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.1054247355" value="School (9–12)" required> School (9–12)</label>
-                <label class="opt"><input type="radio" name="entry.1054247355" value="Undergraduate" required> Undergraduate</label>
-                <label class="opt"><input type="radio" name="entry.1054247355" value="Postgraduate" required> Postgraduate</label>
-                <label class="opt"><input type="radio" name="entry.1054247355" value="PhD / Research" required> PhD / Research</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Field of study / major <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.347329612" value="Engineering / Technology" required> Engineering / Technology</label>
-                <label class="opt"><input type="radio" name="entry.347329612" value="Medical / Health Sciences" required> Medical / Health Sciences</label>
-                <label class="opt"><input type="radio" name="entry.347329612" value="Business / Management" required> Business / Management</label>
-                <label class="opt"><input type="radio" name="entry.347329612" value="Arts / Humanities" required> Arts / Humanities</label>
-                <label class="opt"><input type="radio" name="entry.347329612" value="Science (Pure / Applied)" required> Science (Pure / Applied)</label>
-                <label class="opt"><input type="radio" name="entry.347329612" value="Law" required> Law</label>
-                <label class="opt"><input type="radio" name="entry.347329612" value="Design / Architecture" required> Design / Architecture</label>
-
-                <label class="opt">
-                  <input type="radio" name="entry.347329612" value="__other_option__" required>
-                  Other:
-                  <input class="inline-input" type="text" name="entry.347329612.other_option_response" placeholder="Your major" />
-                </label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Does your field require heavy mental focus or long study hours? <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.920768336" value="Yes, very much" required> Yes, very much</label>
-                <label class="opt"><input type="radio" name="entry.920768336" value="Yes, to some extent" required> Yes, to some extent</label>
-                <label class="opt"><input type="radio" name="entry.920768336" value="Not really" required> Not really</label>
-                <label class="opt"><input type="radio" name="entry.920768336" value="Depends on the day" required> Depends on the day</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">On an average weekday, how busy do you feel? <span class="req">*</span></label>
-              <div class="scale">
-                <label><input type="radio" name="entry.1405260298" value="1" required> 1</label>
-                <label><input type="radio" name="entry.1405260298" value="2" required> 2</label>
-                <label><input type="radio" name="entry.1405260298" value="3" required> 3</label>
-                <label><input type="radio" name="entry.1405260298" value="4" required> 4</label>
-                <label><input type="radio" name="entry.1405260298" value="5" required> 5</label>
-              </div>
-              <div class="hint">1 = Very relaxed, 5 = Extremely overloaded</div>
-            </div>
-
-            <div class="field">
-              <label class="label">What stresses you the most as a student? <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="checkbox" name="entry.541364264" value="Exams and deadlines"> Exams and deadlines</label>
-                <label class="opt"><input type="checkbox" name="entry.541364264" value="Too many subjects/tasks"> Too many subjects/tasks</label>
-                <label class="opt"><input type="checkbox" name="entry.541364264" value="Lack of clarity on what to study first"> Lack of clarity on what to study first</label>
-                <label class="opt"><input type="checkbox" name="entry.541364264" value="Guilt while taking breaks"> Guilt while taking breaks</label>
-                <label class="opt"><input type="checkbox" name="entry.541364264" value="Time management"> Time management</label>
-                <label class="opt"><input type="checkbox" name="entry.541364264" value="Future career pressure"> Future career pressure</label>
-
-                <label class="opt">
-                  <input type="checkbox" name="entry.541364264" value="__other_option__">
-                  Other:
-                  <input class="inline-input" type="text" name="entry.541364264.other_option_response" placeholder="Custom stress" />
-                </label>
-              </div>
-              <div class="hint">Select all that apply.</div>
-            </div>
-
-            <div class="field">
-              <label class="label">How often do you feel confused about what to do next when you sit down to study?</label>
-              <div class="scale">
-                <label><input type="radio" name="entry.418627983" value="1"> 1</label>
-                <label><input type="radio" name="entry.418627983" value="2"> 2</label>
-                <label><input type="radio" name="entry.418627983" value="3"> 3</label>
-                <label><input type="radio" name="entry.418627983" value="4"> 4</label>
-                <label><input type="radio" name="entry.418627983" value="5"> 5</label>
-              </div>
-              <div class="hint">1 = Almost never, 5 = Very often</div>
-            </div>
-
-            <div class="field">
-              <label class="label">When multiple tasks are pending, what usually happens? <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.515781097" value="I pick one quickly and start" required> I pick one quickly and start</label>
-                <label class="opt"><input type="radio" name="entry.515781097" value="I overthink and delay starting" required> I overthink and delay starting</label>
-                <label class="opt"><input type="radio" name="entry.515781097" value="I jump between tasks" required> I jump between tasks</label>
-                <label class="opt"><input type="radio" name="entry.515781097" value="I procrastinate or avoid all" required> I procrastinate or avoid all</label>
-                <label class="opt"><input type="radio" name="entry.515781097" value="Depends on my mood/energy" required> Depends on my mood/energy</label>
-              </div>
-            </div>
-
-            <div class="nav">
-              <button type="button" class="btn ghost" id="backBtn2">Back</button>
-              <button type="button" class="btn primary" id="nextBtn2">Next</button>
-            </div>
-          </section>
-
-          <!-- =======================
-               SECTION: Faculty / Educator
-          ======================== -->
-          <section class="section" data-section="3" id="facultySection">
-            <h2>Faculty / Educator</h2>
-
-            <div class="field">
-              <label class="label">Your primary role <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.653442297" value="School teacher" required> School teacher</label>
-                <label class="opt"><input type="radio" name="entry.653442297" value="College / University faculty" required> College / University faculty</label>
-                <label class="opt"><input type="radio" name="entry.653442297" value="Academic researcher / Research-oriented faculty" required> Academic researcher / Research-oriented faculty</label>
-                <label class="opt"><input type="radio" name="entry.653442297" value="Coaching / tutoring / Training professional" required> Coaching / tutoring / Training professional</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Primary subject / field you teach <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.936315012" value="Engineering / Technology" required> Engineering / Technology</label>
-                <label class="opt"><input type="radio" name="entry.936315012" value="Science" required> Science</label>
-                <label class="opt"><input type="radio" name="entry.936315012" value="Mathematics" required> Mathematics</label>
-                <label class="opt"><input type="radio" name="entry.936315012" value="Medical / Health Sciences" required> Medical / Health Sciences</label>
-                <label class="opt"><input type="radio" name="entry.936315012" value="Arts / Humanities" required> Arts / Humanities</label>
-                <label class="opt"><input type="radio" name="entry.936315012" value="Business / Management" required> Business / Management</label>
-                <label class="opt"><input type="radio" name="entry.936315012" value="Law" required> Law</label>
-                <label class="opt"><input type="radio" name="entry.936315012" value="School-level multiple subjects" required> School-level multiple subjects</label>
-
-                <label class="opt">
-                  <input type="radio" name="entry.936315012" value="__other_option__" required>
-                  Other:
-                  <input class="inline-input" type="text" name="entry.936315012.other_option_response" placeholder="Your subject" />
-                </label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">What takes most of your mental energy? <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="checkbox" name="entry.1607171206" value="Teaching & preparation"> Teaching & preparation</label>
-                <label class="opt"><input type="checkbox" name="entry.1607171206" value="Administrative work"> Administrative work</label>
-                <label class="opt"><input type="checkbox" name="entry.1607171206" value="Student management"> Student management</label>
-                <label class="opt"><input type="checkbox" name="entry.1607171206" value="Research & publications"> Research & publications</label>
-                <label class="opt"><input type="checkbox" name="entry.1607171206" value="Balancing personal life"> Balancing personal life</label>
-                <label class="opt"><input type="checkbox" name="entry.1607171206" value="Technology overload"> Technology overload</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">How often do you feel mentally exhausted at the end of the day? <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.783515880" value="Rarely" required> Rarely</label>
-                <label class="opt"><input type="radio" name="entry.783515880" value="Sometimes" required> Sometimes</label>
-                <label class="opt"><input type="radio" name="entry.783515880" value="Often" required> Often</label>
-                <label class="opt"><input type="radio" name="entry.783515880" value="Almost every day" required> Almost every day</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Do you feel current digital tools actually reduce your workload?</label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.1941084779" value="Yes, significantly"> Yes, significantly</label>
-                <label class="opt"><input type="radio" name="entry.1941084779" value="Slightly"> Slightly</label>
-                <label class="opt"><input type="radio" name="entry.1941084779" value="Neutral"> Neutral</label>
-                <label class="opt"><input type="radio" name="entry.1941084779" value="Not really"> Not really</label>
-                <label class="opt"><input type="radio" name="entry.1941084779" value="They increase it"> They increase it</label>
-              </div>
-            </div>
-
-            <div class="nav">
-              <button type="button" class="btn ghost" id="backBtn3">Back</button>
-              <button type="button" class="btn primary" id="nextBtn3">Next</button>
-            </div>
-          </section>
-
-          <!-- =======================
-               SECTION: AI Tools
-          ======================== -->
-          <section class="section" data-section="4">
-            <h2>AI Tools & AI Fatigue</h2>
-
-            <div class="field">
-              <label class="label">How often do you use AI tools? <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.348761205" value="Daily" required> Daily</label>
-                <label class="opt"><input type="radio" name="entry.348761205" value="Few times a week" required> Few times a week</label>
-                <label class="opt"><input type="radio" name="entry.348761205" value="Occasionally" required> Occasionally</label>
-                <label class="opt"><input type="radio" name="entry.348761205" value="Rarely" required> Rarely</label>
-                <label class="opt"><input type="radio" name="entry.348761205" value="Never" required> Never</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Apart from common AI tools, do you use any other AI tools? <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.1852382847" value="Yes, frequently" required> Yes, frequently</label>
-                <label class="opt"><input type="radio" name="entry.1852382847" value="Yes, occasionally" required> Yes, occasionally</label>
-                <label class="opt"><input type="radio" name="entry.1852382847" value="Tried a few but didn’t continue" required> Tried a few but didn’t continue</label>
-                <label class="opt"><input type="radio" name="entry.1852382847" value="No, I stick to common ones" required> No, I stick to common ones</label>
-                <label class="opt"><input type="radio" name="entry.1852382847" value="I avoid AI tools in general" required> I avoid AI tools in general</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">How often are you searching for a better AI tool? <span class="req">*</span></label>
-              <div class="scale">
-                <label><input type="radio" name="entry.627799832" value="1" required> 1</label>
-                <label><input type="radio" name="entry.627799832" value="2" required> 2</label>
-                <label><input type="radio" name="entry.627799832" value="3" required> 3</label>
-                <label><input type="radio" name="entry.627799832" value="4" required> 4</label>
-                <label><input type="radio" name="entry.627799832" value="5" required> 5</label>
-              </div>
-              <div class="hint">1 = Rarely, 5 = Very often</div>
-            </div>
-
-            <div class="field">
-              <label class="label">Overall, how do you feel about AI tools today? <span class="req">*</span></label>
-              <div class="scale">
-                <label><input type="radio" name="entry.349347602" value="1" required> 1</label>
-                <label><input type="radio" name="entry.349347602" value="2" required> 2</label>
-                <label><input type="radio" name="entry.349347602" value="3" required> 3</label>
-                <label><input type="radio" name="entry.349347602" value="4" required> 4</label>
-                <label><input type="radio" name="entry.349347602" value="5" required> 5</label>
-              </div>
-              <div class="hint">1 = Very annoyed, 5 = Very helpful</div>
-            </div>
-
-            <div class="field">
-              <label class="label">What annoys you the most about AI tools? <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="checkbox" name="entry.728439644" value="Too many tools to choose from"> Too many tools to choose from</label>
-                <label class="opt"><input type="checkbox" name="entry.728439644" value="Too generic responses"> Too generic responses</label>
-                <label class="opt"><input type="checkbox" name="entry.728439644" value="Over-hyped promises"> Over-hyped promises</label>
-                <label class="opt"><input type="checkbox" name="entry.728439644" value="Privacy concerns"> Privacy concerns</label>
-                <label class="opt"><input type="checkbox" name="entry.728439644" value="Too complex to use"> Too complex to use</label>
-                <label class="opt"><input type="checkbox" name="entry.728439644" value="Makes me feel dependent"> Makes me feel dependent</label>
-                <label class="opt"><input type="checkbox" name="entry.728439644" value="Nothing really"> Nothing really</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Do you feel AI currently reduces your mental load? <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.1827028574" value="Yes, clearly" required> Yes, clearly</label>
-                <label class="opt"><input type="radio" name="entry.1827028574" value="A little" required> A little</label>
-                <label class="opt"><input type="radio" name="entry.1827028574" value="Neutral" required> Neutral</label>
-                <label class="opt"><input type="radio" name="entry.1827028574" value="Not really" required> Not really</label>
-                <label class="opt"><input type="radio" name="entry.1827028574" value="It adds more load" required> It adds more load</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Your honest opinion about AI’s future <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.1223327492" value="Very positive" required> Very positive</label>
-                <label class="opt"><input type="radio" name="entry.1223327492" value="Cautiously optimistic" required> Cautiously optimistic</label>
-                <label class="opt"><input type="radio" name="entry.1223327492" value="Neutral" required> Neutral</label>
-                <label class="opt"><input type="radio" name="entry.1223327492" value="Slightly worried" required> Slightly worried</label>
-                <label class="opt"><input type="radio" name="entry.1223327492" value="Very worried" required> Very worried</label>
-              </div>
-            </div>
-
-            <div class="nav">
-              <button type="button" class="btn ghost" id="backBtn4">Back</button>
-              <button type="button" class="btn primary" id="nextBtn4">Next</button>
-            </div>
-          </section>
-
-          <!-- =======================
-               SECTION: Final Thoughts
-          ======================== -->
-          <section class="section" data-section="5">
-            <h2>Final Thoughts</h2>
-
-            <div class="field">
-              <label class="label">One daily problem you wish technology handled better.</label>
-              <textarea name="entry.1433777841" placeholder="Write freely..."></textarea>
-            </div>
-
-            <div class="field">
-              <label class="label">Any frustrations about modern digital life?</label>
-              <textarea name="entry.342443660" placeholder="Write freely..."></textarea>
-            </div>
-
-            <div class="field">
-              <label class="label">Would you be open to trying a new tool that reduces daily decision fatigue? <span class="req">*</span></label>
-              <div class="options">
-                <label class="opt"><input type="radio" name="entry.787470669" value="Yes" required> Yes</label>
-                <label class="opt"><input type="radio" name="entry.787470669" value="Maybe Later" required> Maybe Later</label>
-                <label class="opt"><input type="radio" name="entry.787470669" value="No" required> No</label>
-              </div>
-            </div>
-
-            <div class="field">
-              <label class="label">Email</label>
-              <input type="email" name="entry.1334602359" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" placeholder="you@example.com" />
-              <div class="hint">Optional. If you want future updates.</div>
-            </div>
-
-            <!-- Required hidden fields -->
-            <input type="hidden" name="fvv" value="1">
-            <input type="hidden" name="fbzx" value="8082847058760696476">
-            <input type="hidden" name="pageHistory" value="0,1,2,3,4,5,6,7,8,9,10">
-
-            <div class="nav">
-              <button type="button" class="btn ghost" id="backBtn5">Back</button>
-              <button type="submit" class="btn primary" id="submitBtn">Submit</button>
-            </div>
-          </section>
-
-        </form>
-
-        <!-- Thank you screen -->
-        <div class="thankyou" id="thankyou">
-          <h2>✅ Submitted!</h2>
-          <p>Thanks for your response. It has been recorded successfully.</p>
-          <button class="btn primary" id="restartBtn">Submit another response</button>
+        <div class="meta-right">
+          <span class="pill" id="pill">Required fields *</span>
         </div>
-
       </div>
-    </main>
 
-    <footer class="footer">
-      <p>Made for research • Responses are anonymous</p>
-    </footer>
-  </div>
+      <!-- Hidden iframe for CORS-safe submit -->
+      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+      <form
+        id="customForm"
+        action="https://docs.google.com/forms/d/e/1FAIpQLSd9ohFUhsuKsE_kV6r4692t2TgUbmvHA1Z0gmICTHAsmVm3LQ/formResponse"
+        method="POST"
+        target="hidden_iframe"
+      >
+
+        <!-- =========================
+              SECTION 1: BASIC DETAILS
+        ========================== -->
+        <section class="section active" data-title="Basic Details" data-sub="Let’s start with a few basics.">
+          <h2>Basic Details</h2>
+          <p class="section-sub">Let’s start with a few basics so we can understand your context.</p>
+
+          <div class="field">
+            <label class="label">Age Group <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.261356410" value="Under 18" required> Under 18</label>
+              <label class="opt"><input type="radio" name="entry.261356410" value="18–22" required> 18–22</label>
+              <label class="opt"><input type="radio" name="entry.261356410" value="23–27" required> 23–27</label>
+              <label class="opt"><input type="radio" name="entry.261356410" value="28–35" required> 28–35</label>
+              <label class="opt"><input type="radio" name="entry.261356410" value="36–45" required> 36–45</label>
+              <label class="opt"><input type="radio" name="entry.261356410" value="45+" required> 45+</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Gender <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.142967644" value="Male" required> Male</label>
+              <label class="opt"><input type="radio" name="entry.142967644" value="Female" required> Female</label>
+              <label class="opt"><input type="radio" name="entry.142967644" value="Non-binary" required> Non-binary</label>
+              <label class="opt"><input type="radio" name="entry.142967644" value="Prefer not to say" required> Prefer not to say</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Country / City you currently live in</label>
+            <input type="text" name="entry.876433770" placeholder="e.g., Paris, France" />
+          </div>
+
+          <div class="field">
+            <label class="label">Primary Occupation <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.455331503" value="Student" required> Student</label>
+              <label class="opt"><input type="radio" name="entry.455331503" value="Faculty / Educator" required> Faculty / Educator</label>
+              <label class="opt"><input type="radio" name="entry.455331503" value="Working Professional (Tech field)" required> Working Professional (Tech field)</label>
+              <label class="opt"><input type="radio" name="entry.455331503" value="Working Professional (Non-tech)" required> Working Professional (Non-tech)</label>
+              <label class="opt"><input type="radio" name="entry.455331503" value="Currently not working" required> Currently not working</label>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="btn primary" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- =========================
+              SECTION 2: STUDENT LIFE
+        ========================== -->
+        <section class="section" id="studentSection" data-title="Student Life" data-sub="Questions about academic life.">
+          <h2>Student Life</h2>
+          <p class="section-sub">These questions focus on your academic and daily student life.</p>
+
+          <div class="field">
+            <label class="label">Level of study <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1054247355" value="School (9–12)" required> School (9–12)</label>
+              <label class="opt"><input type="radio" name="entry.1054247355" value="Undergraduate" required> Undergraduate</label>
+              <label class="opt"><input type="radio" name="entry.1054247355" value="Postgraduate" required> Postgraduate</label>
+              <label class="opt"><input type="radio" name="entry.1054247355" value="PhD / Research" required> PhD / Research</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Field of study / major <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.347329612" value="Engineering / Technology" required> Engineering / Technology</label>
+              <label class="opt"><input type="radio" name="entry.347329612" value="Medical / Health Sciences" required> Medical / Health Sciences</label>
+              <label class="opt"><input type="radio" name="entry.347329612" value="Business / Management" required> Business / Management</label>
+              <label class="opt"><input type="radio" name="entry.347329612" value="Arts / Humanities" required> Arts / Humanities</label>
+              <label class="opt"><input type="radio" name="entry.347329612" value="Science (Pure / Applied)" required> Science (Pure / Applied)</label>
+              <label class="opt"><input type="radio" name="entry.347329612" value="Law" required> Law</label>
+              <label class="opt"><input type="radio" name="entry.347329612" value="Design / Architecture" required> Design / Architecture</label>
+
+              <label class="opt">
+                <input type="radio" name="entry.347329612" value="__other_option__" required>
+                Other:
+                <input class="inline-input" type="text" name="entry.347329612.other_option_response" placeholder="Your major" />
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Does your field require heavy mental focus or long study hours? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.920768336" value="Yes, very much" required> Yes, very much</label>
+              <label class="opt"><input type="radio" name="entry.920768336" value="Yes, to some extent" required> Yes, to some extent</label>
+              <label class="opt"><input type="radio" name="entry.920768336" value="Not really" required> Not really</label>
+              <label class="opt"><input type="radio" name="entry.920768336" value="Depends on the day" required> Depends on the day</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">On an average weekday, how busy do you feel? <span class="req">*</span></label>
+            <div class="scale">
+              <label><input type="radio" name="entry.1405260298" value="1" required> 1</label>
+              <label><input type="radio" name="entry.1405260298" value="2" required> 2</label>
+              <label><input type="radio" name="entry.1405260298" value="3" required> 3</label>
+              <label><input type="radio" name="entry.1405260298" value="4" required> 4</label>
+              <label><input type="radio" name="entry.1405260298" value="5" required> 5</label>
+            </div>
+            <div class="hint">1 = Very relaxed, 5 = Extremely overloaded</div>
+          </div>
+
+          <div class="field">
+            <label class="label">What stresses you the most as a student? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="checkbox" name="entry.541364264" value="Exams and deadlines"> Exams and deadlines</label>
+              <label class="opt"><input type="checkbox" name="entry.541364264" value="Too many subjects/tasks"> Too many subjects/tasks</label>
+              <label class="opt"><input type="checkbox" name="entry.541364264" value="Lack of clarity on what to study first"> Lack of clarity on what to study first</label>
+              <label class="opt"><input type="checkbox" name="entry.541364264" value="Guilt while taking breaks"> Guilt while taking breaks</label>
+              <label class="opt"><input type="checkbox" name="entry.541364264" value="Time management"> Time management</label>
+              <label class="opt"><input type="checkbox" name="entry.541364264" value="Future career pressure"> Future career pressure</label>
+
+              <label class="opt">
+                <input type="checkbox" name="entry.541364264" value="__other_option__">
+                Other:
+                <input class="inline-input" type="text" name="entry.541364264.other_option_response" placeholder="Custom stress" />
+              </label>
+            </div>
+            <div class="hint">Select all that apply.</div>
+          </div>
+
+          <div class="field">
+            <label class="label">How often do you feel confused about what to do next when you sit down to study?</label>
+            <div class="scale">
+              <label><input type="radio" name="entry.418627983" value="1"> 1</label>
+              <label><input type="radio" name="entry.418627983" value="2"> 2</label>
+              <label><input type="radio" name="entry.418627983" value="3"> 3</label>
+              <label><input type="radio" name="entry.418627983" value="4"> 4</label>
+              <label><input type="radio" name="entry.418627983" value="5"> 5</label>
+            </div>
+            <div class="hint">1 = Almost never, 5 = Very often</div>
+          </div>
+
+          <div class="field">
+            <label class="label">When multiple tasks are pending, what usually happens? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.515781097" value="I pick one quickly and start" required> I pick one quickly and start</label>
+              <label class="opt"><input type="radio" name="entry.515781097" value="I overthink and delay starting" required> I overthink and delay starting</label>
+              <label class="opt"><input type="radio" name="entry.515781097" value="I jump between tasks" required> I jump between tasks</label>
+              <label class="opt"><input type="radio" name="entry.515781097" value="I procrastinate or avoid all" required> I procrastinate or avoid all</label>
+              <label class="opt"><input type="radio" name="entry.515781097" value="Depends on my mood/energy" required> Depends on my mood/energy</label>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="btn ghost" data-back>Back</button>
+            <button type="button" class="btn primary" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- =========================
+              SECTION 3: FACULTY
+        ========================== -->
+        <section class="section" id="facultySection" data-title="Faculty / Educator" data-sub="Teaching workload and mental energy.">
+          <h2>Faculty / Educator</h2>
+
+          <div class="field">
+            <label class="label">Your primary role <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.653442297" value="School teacher" required> School teacher</label>
+              <label class="opt"><input type="radio" name="entry.653442297" value="College / University faculty" required> College / University faculty</label>
+              <label class="opt"><input type="radio" name="entry.653442297" value="Academic researcher / Research-oriented faculty" required> Academic researcher / Research-oriented faculty</label>
+              <label class="opt"><input type="radio" name="entry.653442297" value="Coaching / tutoring / Training professional" required> Coaching / tutoring / Training professional</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Primary subject / field you teach <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.936315012" value="Engineering / Technology" required> Engineering / Technology</label>
+              <label class="opt"><input type="radio" name="entry.936315012" value="Science" required> Science</label>
+              <label class="opt"><input type="radio" name="entry.936315012" value="Mathematics" required> Mathematics</label>
+              <label class="opt"><input type="radio" name="entry.936315012" value="Medical / Health Sciences" required> Medical / Health Sciences</label>
+              <label class="opt"><input type="radio" name="entry.936315012" value="Arts / Humanities" required> Arts / Humanities</label>
+              <label class="opt"><input type="radio" name="entry.936315012" value="Business / Management" required> Business / Management</label>
+              <label class="opt"><input type="radio" name="entry.936315012" value="Law" required> Law</label>
+              <label class="opt"><input type="radio" name="entry.936315012" value="School-level multiple subjects" required> School-level multiple subjects</label>
+
+              <label class="opt">
+                <input type="radio" name="entry.936315012" value="__other_option__" required>
+                Other:
+                <input class="inline-input" type="text" name="entry.936315012.other_option_response" placeholder="Your subject" />
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">What takes most of your mental energy? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="checkbox" name="entry.1607171206" value="Teaching & preparation"> Teaching & preparation</label>
+              <label class="opt"><input type="checkbox" name="entry.1607171206" value="Administrative work"> Administrative work</label>
+              <label class="opt"><input type="checkbox" name="entry.1607171206" value="Student management"> Student management</label>
+              <label class="opt"><input type="checkbox" name="entry.1607171206" value="Research & publications"> Research & publications</label>
+              <label class="opt"><input type="checkbox" name="entry.1607171206" value="Balancing personal life"> Balancing personal life</label>
+              <label class="opt"><input type="checkbox" name="entry.1607171206" value="Technology overload"> Technology overload</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">How often do you feel mentally exhausted at the end of the day? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.783515880" value="Rarely" required> Rarely</label>
+              <label class="opt"><input type="radio" name="entry.783515880" value="Sometimes" required> Sometimes</label>
+              <label class="opt"><input type="radio" name="entry.783515880" value="Often" required> Often</label>
+              <label class="opt"><input type="radio" name="entry.783515880" value="Almost every day" required> Almost every day</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Do you feel current digital tools actually reduce your workload?</label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1941084779" value="Yes, significantly"> Yes, significantly</label>
+              <label class="opt"><input type="radio" name="entry.1941084779" value="Slightly"> Slightly</label>
+              <label class="opt"><input type="radio" name="entry.1941084779" value="Neutral"> Neutral</label>
+              <label class="opt"><input type="radio" name="entry.1941084779" value="Not really"> Not really</label>
+              <label class="opt"><input type="radio" name="entry.1941084779" value="They increase it"> They increase it</label>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="btn ghost" data-back>Back</button>
+            <button type="button" class="btn primary" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- =========================
+              SECTION 4: WORKING PRO TECH
+        ========================== -->
+        <section class="section" id="techSection" data-title="Working Professional (Tech)" data-sub="Work style & daily challenges.">
+          <h2>Working Professional (Tech)</h2>
+
+          <div class="field">
+            <label class="label">Your experience level <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.828343110" value="Student / Intern" required> Student / Intern</label>
+              <label class="opt"><input type="radio" name="entry.828343110" value="0–2 years" required> 0–2 years</label>
+              <label class="opt"><input type="radio" name="entry.828343110" value="3–5 years" required> 3–5 years</label>
+              <label class="opt"><input type="radio" name="entry.828343110" value="6–10 years" required> 6–10 years</label>
+              <label class="opt"><input type="radio" name="entry.828343110" value="10+ years" required> 10+ years</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Your work style</label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1236239186" value="Mostly fixed schedule"> Mostly fixed schedule</label>
+              <label class="opt"><input type="radio" name="entry.1236239186" value="Flexible hours"> Flexible hours</label>
+              <label class="opt"><input type="radio" name="entry.1236239186" value="Hybrid"> Hybrid</label>
+              <label class="opt"><input type="radio" name="entry.1236239186" value="Fully remote"> Fully remote</label>
+              <label class="opt"><input type="radio" name="entry.1236239186" value="Highly unpredictable"> Highly unpredictable</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Biggest daily challenge <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="checkbox" name="entry.84992086" value="Task prioritization"> Task prioritization</label>
+              <label class="opt"><input type="checkbox" name="entry.84992086" value="Context switching"> Context switching</label>
+              <label class="opt"><input type="checkbox" name="entry.84992086" value="Mental fatigue"> Mental fatigue</label>
+              <label class="opt"><input type="checkbox" name="entry.84992086" value="Meetings overload"> Meetings overload</label>
+              <label class="opt"><input type="checkbox" name="entry.84992086" value="Burnout"> Burnout</label>
+              <label class="opt"><input type="checkbox" name="entry.84992086" value="Keeping focus"> Keeping focus</label>
+              <label class="opt"><input type="checkbox" name="entry.84992086" value="Decision overload"> Decision overload</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">How often do you end the day feeling you worked a lot but achieved less? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.711556408" value="Rarely" required> Rarely</label>
+              <label class="opt"><input type="radio" name="entry.711556408" value="Sometimes" required> Sometimes</label>
+              <label class="opt"><input type="radio" name="entry.711556408" value="Often" required> Often</label>
+              <label class="opt"><input type="radio" name="entry.711556408" value="Very often" required> Very often</label>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="btn ghost" data-back>Back</button>
+            <button type="button" class="btn primary" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- =========================
+              SECTION 5: WORKING PRO NON-TECH
+        ========================== -->
+        <section class="section" id="nonTechSection" data-title="Working Professional (Non-Tech)" data-sub="Your daily work and energy drains.">
+          <h2>Working Professional (Non-Tech)</h2>
+
+          <div class="field">
+            <label class="label">Your field <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1698841182" value="Business / Management" required> Business / Management</label>
+              <label class="opt"><input type="radio" name="entry.1698841182" value="Healthcare" required> Healthcare</label>
+              <label class="opt"><input type="radio" name="entry.1698841182" value="Government" required> Government</label>
+              <label class="opt"><input type="radio" name="entry.1698841182" value="Creative / Media" required> Creative / Media</label>
+              <label class="opt"><input type="radio" name="entry.1698841182" value="Sales / Marketing" required> Sales / Marketing</label>
+              <label class="opt"><input type="radio" name="entry.1698841182" value="Operations / Logistics" required> Operations / Logistics</label>
+
+              <label class="opt">
+                <input type="radio" name="entry.1698841182" value="__other_option__" required>
+                Other:
+                <input class="inline-input" type="text" name="entry.1698841182.other_option_response" placeholder="Your field" />
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Nature of your daily work <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.414451394" value="Mostly physical" required> Mostly physical</label>
+              <label class="opt"><input type="radio" name="entry.414451394" value="Mostly mental" required> Mostly mental</label>
+              <label class="opt"><input type="radio" name="entry.414451394" value="Mixed" required> Mixed</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">What drains your energy the most? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1527668128" value="Decisions" required> Decisions</label>
+              <label class="opt"><input type="radio" name="entry.1527668128" value="People interaction" required> People interaction</label>
+              <label class="opt"><input type="radio" name="entry.1527668128" value="Long hours" required> Long hours</label>
+              <label class="opt"><input type="radio" name="entry.1527668128" value="Unclear priorities" required> Unclear priorities</label>
+              <label class="opt"><input type="radio" name="entry.1527668128" value="Technology/tools" required> Technology/tools</label>
+              <label class="opt"><input type="radio" name="entry.1527668128" value="Personal responsibilities" required> Personal responsibilities</label>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="btn ghost" data-back>Back</button>
+            <button type="button" class="btn primary" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- =========================
+              SECTION 6: AI TOOLS
+        ========================== -->
+        <section class="section" data-title="AI Tools & AI Fatigue" data-sub="How you feel about AI tools today.">
+          <h2>AI Tools & AI Fatigue</h2>
+
+          <div class="field">
+            <label class="label">How often do you use AI tools (ChatGPT, Copilot, Gemini, etc.)? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.348761205" value="Daily" required> Daily</label>
+              <label class="opt"><input type="radio" name="entry.348761205" value="Few times a week" required> Few times a week</label>
+              <label class="opt"><input type="radio" name="entry.348761205" value="Occasionally" required> Occasionally</label>
+              <label class="opt"><input type="radio" name="entry.348761205" value="Rarely" required> Rarely</label>
+              <label class="opt"><input type="radio" name="entry.348761205" value="Never" required> Never</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Apart from common AI tools, do you use any other AI tools? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1852382847" value="Yes, frequently" required> Yes, frequently</label>
+              <label class="opt"><input type="radio" name="entry.1852382847" value="Yes, occasionally" required> Yes, occasionally</label>
+              <label class="opt"><input type="radio" name="entry.1852382847" value="Tried a few but didn’t continue" required> Tried a few but didn’t continue</label>
+              <label class="opt"><input type="radio" name="entry.1852382847" value="No, I stick to common ones" required> No, I stick to common ones</label>
+              <label class="opt"><input type="radio" name="entry.1852382847" value="I avoid AI tools in general" required> I avoid AI tools in general</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">How often are you searching for a better or more specific AI tool for your tasks? <span class="req">*</span></label>
+            <div class="scale">
+              <label><input type="radio" name="entry.627799832" value="1" required> 1</label>
+              <label><input type="radio" name="entry.627799832" value="2" required> 2</label>
+              <label><input type="radio" name="entry.627799832" value="3" required> 3</label>
+              <label><input type="radio" name="entry.627799832" value="4" required> 4</label>
+              <label><input type="radio" name="entry.627799832" value="5" required> 5</label>
+            </div>
+            <div class="hint">1 = Rarely, 5 = Very often</div>
+          </div>
+
+          <div class="field">
+            <label class="label">Overall, how do you feel about AI tools today? <span class="req">*</span></label>
+            <div class="scale">
+              <label><input type="radio" name="entry.349347602" value="1" required> 1</label>
+              <label><input type="radio" name="entry.349347602" value="2" required> 2</label>
+              <label><input type="radio" name="entry.349347602" value="3" required> 3</label>
+              <label><input type="radio" name="entry.349347602" value="4" required> 4</label>
+              <label><input type="radio" name="entry.349347602" value="5" required> 5</label>
+            </div>
+            <div class="hint">1 = Very annoyed, 5 = Very helpful</div>
+          </div>
+
+          <div class="field">
+            <label class="label">What annoys you the most about AI tools? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="checkbox" name="entry.728439644" value="Too many tools to choose from"> Too many tools to choose from</label>
+              <label class="opt"><input type="checkbox" name="entry.728439644" value="Too generic responses"> Too generic responses</label>
+              <label class="opt"><input type="checkbox" name="entry.728439644" value="Over-hyped promises"> Over-hyped promises</label>
+              <label class="opt"><input type="checkbox" name="entry.728439644" value="Privacy concerns"> Privacy concerns</label>
+              <label class="opt"><input type="checkbox" name="entry.728439644" value="Too complex to use"> Too complex to use</label>
+              <label class="opt"><input type="checkbox" name="entry.728439644" value="Makes me feel dependent"> Makes me feel dependent</label>
+              <label class="opt"><input type="checkbox" name="entry.728439644" value="Nothing really"> Nothing really</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Do you feel AI currently reduces your mental load? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1827028574" value="Yes, clearly" required> Yes, clearly</label>
+              <label class="opt"><input type="radio" name="entry.1827028574" value="A little" required> A little</label>
+              <label class="opt"><input type="radio" name="entry.1827028574" value="Neutral" required> Neutral</label>
+              <label class="opt"><input type="radio" name="entry.1827028574" value="Not really" required> Not really</label>
+              <label class="opt"><input type="radio" name="entry.1827028574" value="It adds more load" required> It adds more load</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Your honest opinion about AI’s future <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1223327492" value="Very positive" required> Very positive</label>
+              <label class="opt"><input type="radio" name="entry.1223327492" value="Cautiously optimistic" required> Cautiously optimistic</label>
+              <label class="opt"><input type="radio" name="entry.1223327492" value="Neutral" required> Neutral</label>
+              <label class="opt"><input type="radio" name="entry.1223327492" value="Slightly worried" required> Slightly worried</label>
+              <label class="opt"><input type="radio" name="entry.1223327492" value="Very worried" required> Very worried</label>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="btn ghost" data-back>Back</button>
+            <button type="button" class="btn primary" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- =========================
+              SECTION 7: TIME, DECISIONS & CONFUSION
+        ========================== -->
+        <section class="section" data-title="Time, Decisions & Confusion" data-sub="Decision fatigue & getting stuck.">
+          <h2>Time, Decisions & Confusion</h2>
+
+          <div class="field">
+            <label class="label">On an average day, how much time do you spend just deciding what to do next? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.147820745" value="Less than 5 minutes" required> Less than 5 minutes</label>
+              <label class="opt"><input type="radio" name="entry.147820745" value="5–15 minutes" required> 5–15 minutes</label>
+              <label class="opt"><input type="radio" name="entry.147820745" value="15–30 minutes" required> 15–30 minutes</label>
+              <label class="opt"><input type="radio" name="entry.147820745" value="More than 30 minutes" required> More than 30 minutes</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">How often do you feel mentally “stuck” even when you have time? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1608423096" value="Almost never" required> Almost never</label>
+              <label class="opt"><input type="radio" name="entry.1608423096" value="Sometimes" required> Sometimes</label>
+              <label class="opt"><input type="radio" name="entry.1608423096" value="Often" required> Often</label>
+              <label class="opt"><input type="radio" name="entry.1608423096" value="Very often" required> Very often</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">How much time do you spend deciding what to wear on a normal day? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1662480650" value="Less than 2 minutes" required> Less than 2 minutes</label>
+              <label class="opt"><input type="radio" name="entry.1662480650" value="2–5 minutes" required> 2–5 minutes</label>
+              <label class="opt"><input type="radio" name="entry.1662480650" value="5–10 minutes" required> 5–10 minutes</label>
+              <label class="opt"><input type="radio" name="entry.1662480650" value="More than 10 minutes" required> More than 10 minutes</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Does your mood/energy affect your decisions? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.849167127" value="Yes, a lot" required> Yes, a lot</label>
+              <label class="opt"><input type="radio" name="entry.849167127" value="Yes, sometimes" required> Yes, sometimes</label>
+              <label class="opt"><input type="radio" name="entry.849167127" value="Not much" required> Not much</label>
+              <label class="opt"><input type="radio" name="entry.849167127" value="Not at all" required> Not at all</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">What do you usually need most in such moments? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.72237547" value="Clear next step" required> Clear next step</label>
+              <label class="opt"><input type="radio" name="entry.72237547" value="Motivation" required> Motivation</label>
+              <label class="opt"><input type="radio" name="entry.72237547" value="Rest suggestion" required> Rest suggestion</label>
+              <label class="opt"><input type="radio" name="entry.72237547" value="Time management" required> Time management</label>
+              <label class="opt"><input type="radio" name="entry.72237547" value="Someone/something to guide me" required> Someone/something to guide me</label>
+              <label class="opt"><input type="radio" name="entry.72237547" value="I usually figure it out myself" required> I usually figure it out myself</label>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="btn ghost" data-back>Back</button>
+            <button type="button" class="btn primary" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- =========================
+              SECTION 8: TECHNOLOGY ECOSYSTEM
+        ========================== -->
+        <section class="section" data-title="Technology Ecosystem" data-sub="Devices you use daily.">
+          <h2>Technology Ecosystem</h2>
+
+          <div class="field">
+            <label class="label">Smartphone you primarily use <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1323074525" value="Android" required> Android</label>
+              <label class="opt"><input type="radio" name="entry.1323074525" value="iPhone" required> iPhone</label>
+              <label class="opt"><input type="radio" name="entry.1323074525" value="Both" required> Both</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Do you use a smartwatch or fitness band?</label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1586762983" value="Apple Watch"> Apple Watch</label>
+              <label class="opt"><input type="radio" name="entry.1586762983" value="Wear OS (Samsung, Pixel, etc.)"> Wear OS (Samsung, Pixel, etc.)</label>
+              <label class="opt"><input type="radio" name="entry.1586762983" value="Fitness band (Mi, Fitbit, etc.)"> Fitness band (Mi, Fitbit, etc.)</label>
+              <label class="opt"><input type="radio" name="entry.1586762983" value="Non-smart watch"> Non-smart watch</label>
+              <label class="opt"><input type="radio" name="entry.1586762983" value="No watch"> No watch</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Do you wear any smart ring <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1771696539" value="Yes" required> Yes</label>
+              <label class="opt"><input type="radio" name="entry.1771696539" value="No" required> No</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Voice assistants you’ve used <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.78799094" value="Google Assistant" required> Google Assistant</label>
+              <label class="opt"><input type="radio" name="entry.78799094" value="Siri" required> Siri</label>
+              <label class="opt"><input type="radio" name="entry.78799094" value="Alexa" required> Alexa</label>
+              <label class="opt"><input type="radio" name="entry.78799094" value="None" required> None</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Smart home devices you use</label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1651492350" value="Smart TV"> Smart TV</label>
+              <label class="opt"><input type="radio" name="entry.1651492350" value="Smart speakers"> Smart speakers</label>
+              <label class="opt"><input type="radio" name="entry.1651492350" value="Smart lights"> Smart lights</label>
+              <label class="opt"><input type="radio" name="entry.1651492350" value="Smart CCTV"> Smart CCTV</label>
+              <label class="opt"><input type="radio" name="entry.1651492350" value="Smart plugs"> Smart plugs</label>
+              <label class="opt"><input type="radio" name="entry.1651492350" value="None"> None</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">How comfortable are you with smart/connected devices?</label>
+            <div class="scale">
+              <label><input type="radio" name="entry.709579799" value="1"> 1</label>
+              <label><input type="radio" name="entry.709579799" value="2"> 2</label>
+              <label><input type="radio" name="entry.709579799" value="3"> 3</label>
+              <label><input type="radio" name="entry.709579799" value="4"> 4</label>
+              <label><input type="radio" name="entry.709579799" value="5"> 5</label>
+            </div>
+            <div class="hint">1 = Not comfortable, 5 = Very comfortable</div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="btn ghost" data-back>Back</button>
+            <button type="button" class="btn primary" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- =========================
+              SECTION 9: TRUST, PRIVACY & CONTROL
+        ========================== -->
+        <section class="section" data-title="Trust, Privacy & Control" data-sub="Privacy and device-only trust.">
+          <h2>Trust, Privacy & Control</h2>
+
+          <div class="field">
+            <label class="label">How important is data privacy to you? <span class="req">*</span></label>
+            <div class="scale">
+              <label><input type="radio" name="entry.1685988850" value="1" required> 1</label>
+              <label><input type="radio" name="entry.1685988850" value="2" required> 2</label>
+              <label><input type="radio" name="entry.1685988850" value="3" required> 3</label>
+              <label><input type="radio" name="entry.1685988850" value="4" required> 4</label>
+              <label><input type="radio" name="entry.1685988850" value="5" required> 5</label>
+            </div>
+            <div class="hint">1 = Not very important, 5 = Extremely important</div>
+          </div>
+
+          <div class="field">
+            <label class="label">Would you trust a tool that works fully on your device without uploading data? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.1199621231" value="Yes, completely" required> Yes, completely</label>
+              <label class="opt"><input type="radio" name="entry.1199621231" value="Mostly yes" required> Mostly yes</label>
+              <label class="opt"><input type="radio" name="entry.1199621231" value="Not sure" required> Not sure</label>
+              <label class="opt"><input type="radio" name="entry.1199621231" value="Probably not" required> Probably not</label>
+            </div>
+          </div>
+
+          <div class="nav">
+            <button type="button" class="btn ghost" data-back>Back</button>
+            <button type="button" class="btn primary" data-next>Next</button>
+          </div>
+        </section>
+
+        <!-- =========================
+              SECTION 10: FINAL THOUGHTS
+        ========================== -->
+        <section class="section" data-title="Final Thoughts" data-sub="Last few questions.">
+          <h2>Final Thoughts</h2>
+
+          <div class="field">
+            <label class="label">One daily problem you wish technology handled better.</label>
+            <textarea name="entry.1433777841" placeholder="Write freely..."></textarea>
+          </div>
+
+          <div class="field">
+            <label class="label">Any frustrations about modern digital life?</label>
+            <textarea name="entry.342443660" placeholder="Write freely..."></textarea>
+          </div>
+
+          <div class="field">
+            <label class="label">Would you be open to trying a new tool that reduces daily decision fatigue? <span class="req">*</span></label>
+            <div class="options">
+              <label class="opt"><input type="radio" name="entry.787470669" value="Yes" required> Yes</label>
+              <label class="opt"><input type="radio" name="entry.787470669" value="Maybe Later" required> Maybe Later</label>
+              <label class="opt"><input type="radio" name="entry.787470669" value="No" required> No</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Email</label>
+            <input
+              type="email"
+              name="entry.1334602359"
+              placeholder="you@example.com"
+              pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+            />
+            <div class="hint">Optional. If you want future updates.</div>
+          </div>
+
+          <!-- Required hidden fields -->
+          <input type="hidden" name="fvv" value="1">
+          <input type="hidden" name="fbzx" value="8082847058760696476">
+          <input type="hidden" name="pageHistory" value="0,1,2,3,4,5,6,7,8,9,10">
+
+          <div class="nav">
+            <button type="button" class="btn ghost" data-back>Back</button>
+            <button type="submit" class="btn primary" id="submitBtn">Submit</button>
+          </div>
+        </section>
+
+      </form>
+
+      <!-- Thank you screen -->
+      <div class="thankyou" id="thankyou">
+        <div class="checkmark">✓</div>
+        <h2>Response Submitted</h2>
+        <p>Your response has been recorded successfully. Thanks for your time!</p>
+        <button class="btn primary" id="restartBtn">Submit another response</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <p>Made for research • Responses are anonymous</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
 </html>
-
