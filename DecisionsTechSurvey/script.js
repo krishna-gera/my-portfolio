@@ -9,7 +9,7 @@ const restartBtn = document.getElementById("restartBtn");
 
 const sections = Array.from(document.querySelectorAll(".section"));
 
-// Error popup elements
+// Error popup
 const popupOverlay = document.getElementById("popupOverlay");
 const popupCloseBtn = document.getElementById("popupCloseBtn");
 
@@ -19,10 +19,23 @@ const popupCloseBtn = document.getElementById("popupCloseBtn");
 let current = 0;
 
 // ============================
+// POPUP
+// ============================
+function showPopup() {
+  popupOverlay.classList.add("show");
+}
+function closePopup() {
+  popupOverlay.classList.remove("show");
+}
+
+popupCloseBtn.addEventListener("click", closePopup);
+popupOverlay.addEventListener("click", (e) => {
+  if (e.target === popupOverlay) closePopup();
+});
+
+// ============================
 // HELPERS
 // ============================
-
-// Get only visible sections (important when we hide student/faculty)
 function visibleSections() {
   return sections.filter((s) => s.style.display !== "none");
 }
@@ -30,152 +43,22 @@ function visibleSections() {
 function showSection(index) {
   const vis = visibleSections();
 
-  // safety clamp
   if (index < 0) index = 0;
   if (index >= vis.length) index = vis.length - 1;
 
-  // hide all
   sections.forEach((s) => s.classList.remove("active"));
-
-  // show current
   vis[index].classList.add("active");
 
-  // update progress
   const progress = Math.round(((index + 1) / vis.length) * 100);
   progressBar.style.width = progress + "%";
 
-  // scroll to top
   window.scrollTo({ top: 0, behavior: "smooth" });
-
   current = index;
 }
 
-function showPopup() {
-  popupOverlay.classList.add("show");
-}
-
-function closePopup() {
-  popupOverlay.classList.remove("show");
-}
-
-popupCloseBtn?.addEventListener("click", closePopup);
-
-popupOverlay?.addEventListener("click", (e) => {
-  if (e.target === popupOverlay) closePopup();
-});
-
 // ============================
-// VALIDATION
+// ROUTING (Occupation)
 // ============================
-
-function validateCurrentSection() {
-  const vis = visibleSections();
-  const active = vis[current];
-
-  if (!active) return false;
-
-  const requiredFields = active.querySelectorAll("[required]");
-
-  for (const field of requiredFields) {
-    // RADIO GROUP VALIDATION
-    if (field.type === "radio") {
-      const group = active.querySelectorAll(`input[name="${field.name}"]`);
-      const checked = Array.from(group).some((r) => r.checked);
-      if (!checked) return false;
-    }
-
-    // TEXT / EMAIL / TEXTAREA VALIDATION
-    if (
-      field.type === "text" ||
-      field.type === "email" ||
-      field.tagName === "TEXTAREA"
-    ) {
-      if (!field.value.trim()) return false;
-    }
-  }
-
-  // EXTRA RULE: Required checkboxes group must have at least 1 checked
-  // (Google Forms usually treats checkbox question required like this)
-  // We detect checkbox groups by checking if multiple inputs share same name.
-  const requiredCheckboxes = active.querySelectorAll(
-    'input[type="checkbox"][name][required]'
-  );
-
-  if (requiredCheckboxes.length > 0) {
-    const checkboxNames = [...new Set(Array.from(requiredCheckboxes).map((c) => c.name))];
-
-    for (const nm of checkboxNames) {
-      const group = active.querySelectorAll(`input[type="checkbox"][name="${nm}"]`);
-      const checked = Array.from(group).some((c) => c.checked);
-      if (!checked) return false;
-    }
-  }
-
-  return true;
-}
-
-function clearHighlights() {
-  const vis = visibleSections();
-  const active = vis[current];
-  if (!active) return;
-
-  active.querySelectorAll(".field").forEach((f) => f.classList.remove("error"));
-}
-
-function highlightMissingRequired() {
-  const vis = visibleSections();
-  const active = vis[current];
-  if (!active) return;
-
-  clearHighlights();
-
-  let firstBadField = null;
-
-  const requiredFields = active.querySelectorAll("[required]");
-
-  requiredFields.forEach((field) => {
-    // RADIO GROUP
-    if (field.type === "radio") {
-      const group = active.querySelectorAll(`input[name="${field.name}"]`);
-      const checked = Array.from(group).some((r) => r.checked);
-
-      if (!checked) {
-        const wrapper = field.closest(".field");
-        if (wrapper) {
-          wrapper.classList.add("error");
-          if (!firstBadField) firstBadField = wrapper;
-        }
-      }
-    }
-
-    // TEXT / EMAIL / TEXTAREA
-    if (
-      field.type === "text" ||
-      field.type === "email" ||
-      field.tagName === "TEXTAREA"
-    ) {
-      if (!field.value.trim()) {
-        const wrapper = field.closest(".field");
-        if (wrapper) {
-          wrapper.classList.add("error");
-          if (!firstBadField) firstBadField = wrapper;
-        }
-      }
-    }
-  });
-
-  // Scroll to first missing field
-  if (firstBadField) {
-    setTimeout(() => {
-      firstBadField.scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 120);
-  }
-}
-
-// ============================
-// ROUTING LOGIC (Occupation)
-// ============================
-
 function handleOccupationRouting() {
   const occupation = document.querySelector(
     'input[name="entry.455331503"]:checked'
@@ -183,35 +66,32 @@ function handleOccupationRouting() {
 
   const studentSection = document.getElementById("studentSection");
   const facultySection = document.getElementById("facultySection");
+  const techSection = document.getElementById("techSection");
+  const nonTechSection = document.getElementById("nonTechSection");
 
-  // Reset first
-  if (studentSection) studentSection.style.display = "";
-  if (facultySection) facultySection.style.display = "";
+  // Reset all
+  studentSection.style.display = "none";
+  facultySection.style.display = "none";
+  techSection.style.display = "none";
+  nonTechSection.style.display = "none";
 
-  // Apply logic
-  if (occupation === "Student") {
-    if (facultySection) facultySection.style.display = "none";
-  } else if (occupation === "Faculty / Educator") {
-    if (studentSection) studentSection.style.display = "none";
-  } else {
-    // Working professionals skip both
-    if (studentSection) studentSection.style.display = "none";
-    if (facultySection) facultySection.style.display = "none";
+  if (occupation === "Student") studentSection.style.display = "";
+  else if (occupation === "Faculty / Educator") facultySection.style.display = "";
+  else if (occupation === "Working Professional (Tech field)") techSection.style.display = "";
+  else if (occupation === "Working Professional (Non-tech)") nonTechSection.style.display = "";
+  else {
+    // Currently not working -> skip these occupation-specific sections
   }
 }
 
-/**
- * IMPORTANT:
- * Hidden sections must NOT have required fields.
- * Otherwise browser will block submit.
- */
+// ============================
+// REQUIRED SYNC FOR HIDDEN
+// ============================
 function syncRequiredForHiddenSections() {
   sections.forEach((section) => {
     const isHidden = section.style.display === "none";
 
-    const requiredInputs = section.querySelectorAll("[required]");
-
-    requiredInputs.forEach((el) => {
+    section.querySelectorAll("[required]").forEach((el) => {
       if (isHidden) {
         el.dataset.wasRequired = "true";
         el.removeAttribute("required");
@@ -225,11 +105,96 @@ function syncRequiredForHiddenSections() {
 }
 
 // ============================
+// VALIDATION
+// ============================
+function validateCurrentSection() {
+  const vis = visibleSections();
+  const active = vis[current];
+  if (!active) return false;
+
+  const requiredFields = active.querySelectorAll("[required]");
+
+  for (const field of requiredFields) {
+    // Radio group
+    if (field.type === "radio") {
+      const group = active.querySelectorAll(`input[name="${field.name}"]`);
+      const checked = Array.from(group).some((r) => r.checked);
+      if (!checked) return false;
+    }
+
+    // Text/email/textarea
+    if (
+      field.type === "text" ||
+      field.type === "email" ||
+      field.tagName === "TEXTAREA"
+    ) {
+      if (!field.value.trim()) return false;
+    }
+  }
+
+  return true;
+}
+
+function clearHighlights() {
+  const vis = visibleSections();
+  const active = vis[current];
+  if (!active) return;
+  active.querySelectorAll(".field").forEach((f) => f.classList.remove("error"));
+}
+
+function highlightMissingRequired() {
+  const vis = visibleSections();
+  const active = vis[current];
+  if (!active) return;
+
+  clearHighlights();
+
+  let firstBad = null;
+
+  const requiredFields = active.querySelectorAll("[required]");
+
+  requiredFields.forEach((field) => {
+    // Radio group
+    if (field.type === "radio") {
+      const group = active.querySelectorAll(`input[name="${field.name}"]`);
+      const checked = Array.from(group).some((r) => r.checked);
+
+      if (!checked) {
+        const wrapper = field.closest(".field");
+        if (wrapper) {
+          wrapper.classList.add("error");
+          if (!firstBad) firstBad = wrapper;
+        }
+      }
+    }
+
+    // Text/email/textarea
+    if (
+      field.type === "text" ||
+      field.type === "email" ||
+      field.tagName === "TEXTAREA"
+    ) {
+      if (!field.value.trim()) {
+        const wrapper = field.closest(".field");
+        if (wrapper) {
+          wrapper.classList.add("error");
+          if (!firstBad) firstBad = wrapper;
+        }
+      }
+    }
+  });
+
+  if (firstBad) {
+    setTimeout(() => {
+      firstBad.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 120);
+  }
+}
+
+// ============================
 // NAVIGATION
 // ============================
-
 function goNext() {
-  // validate
   if (!validateCurrentSection()) {
     showPopup();
     highlightMissingRequired();
@@ -243,40 +208,59 @@ function goNext() {
 }
 
 function goBack() {
-  if (current > 0) {
-    showSection(current - 1);
-  }
+  if (current > 0) showSection(current - 1);
 }
 
 // ============================
-// BUTTON HOOKS
+// BUTTON EVENTS
 // ============================
 
-// Next buttons
-document.getElementById("nextBtn1")?.addEventListener("click", () => {
-  // routing decision is made after occupation is selected
+// Section 1 next
+document.getElementById("nextBtn1").addEventListener("click", () => {
   handleOccupationRouting();
   syncRequiredForHiddenSections();
-
   goNext();
 });
 
+// Student section
 document.getElementById("nextBtn2")?.addEventListener("click", goNext);
-document.getElementById("nextBtn3")?.addEventListener("click", goNext);
-document.getElementById("nextBtn4")?.addEventListener("click", goNext);
-
-// Back buttons
 document.getElementById("backBtn2")?.addEventListener("click", goBack);
+
+// Faculty section
+document.getElementById("nextBtn3")?.addEventListener("click", goNext);
 document.getElementById("backBtn3")?.addEventListener("click", goBack);
-document.getElementById("backBtn4")?.addEventListener("click", goBack);
-document.getElementById("backBtn5")?.addEventListener("click", goBack);
+
+// Tech section
+document.getElementById("nextBtnTech")?.addEventListener("click", goNext);
+document.getElementById("backBtnTech")?.addEventListener("click", goBack);
+
+// Non-tech section
+document.getElementById("nextBtnNonTech")?.addEventListener("click", goNext);
+document.getElementById("backBtnNonTech")?.addEventListener("click", goBack);
+
+// AI section
+document.getElementById("nextBtnAI")?.addEventListener("click", goNext);
+document.getElementById("backBtnAI")?.addEventListener("click", goBack);
+
+// Time section
+document.getElementById("nextBtnTime")?.addEventListener("click", goNext);
+document.getElementById("backBtnTime")?.addEventListener("click", goBack);
+
+// Tech ecosystem section
+document.getElementById("nextBtnEco")?.addEventListener("click", goNext);
+document.getElementById("backBtnEco")?.addEventListener("click", goBack);
+
+// Privacy section
+document.getElementById("nextBtnPrivacy")?.addEventListener("click", goNext);
+document.getElementById("backBtnPrivacy")?.addEventListener("click", goBack);
+
+// Final section
+document.getElementById("backBtnFinal")?.addEventListener("click", goBack);
 
 // ============================
-// FORM SUBMIT
+// SUBMIT
 // ============================
-
-form?.addEventListener("submit", function (e) {
-  // validate last visible section
+form.addEventListener("submit", function (e) {
   if (!validateCurrentSection()) {
     e.preventDefault();
     showPopup();
@@ -284,7 +268,7 @@ form?.addEventListener("submit", function (e) {
     return;
   }
 
-  // Allow form to submit into hidden iframe
+  // allow submission into iframe
   setTimeout(() => {
     form.style.display = "none";
     thankyou.style.display = "block";
@@ -296,32 +280,36 @@ form?.addEventListener("submit", function (e) {
 // ============================
 // RESTART
 // ============================
-
-restartBtn?.addEventListener("click", () => {
-  // reset form
+restartBtn.addEventListener("click", () => {
   form.reset();
-
-  // show form again
   form.style.display = "block";
   thankyou.style.display = "none";
 
-  // reset section visibility
-  const studentSection = document.getElementById("studentSection");
-  const facultySection = document.getElementById("facultySection");
+  // Reset occupation sections
+  document.getElementById("studentSection").style.display = "";
+  document.getElementById("facultySection").style.display = "";
+  document.getElementById("techSection").style.display = "";
+  document.getElementById("nonTechSection").style.display = "";
 
-  if (studentSection) studentSection.style.display = "";
-  if (facultySection) facultySection.style.display = "";
+  // Hide them again until occupation selected
+  document.getElementById("studentSection").style.display = "none";
+  document.getElementById("facultySection").style.display = "none";
+  document.getElementById("techSection").style.display = "none";
+  document.getElementById("nonTechSection").style.display = "none";
 
-  // reset required sync
   syncRequiredForHiddenSections();
-
-  // go to first
   showSection(0);
 });
 
 // ============================
 // INIT
 // ============================
+
+// hide occupation-specific sections initially
+document.getElementById("studentSection").style.display = "none";
+document.getElementById("facultySection").style.display = "none";
+document.getElementById("techSection").style.display = "none";
+document.getElementById("nonTechSection").style.display = "none";
 
 showSection(0);
 progressBar.style.width = "10%";
