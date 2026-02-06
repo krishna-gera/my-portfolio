@@ -315,6 +315,85 @@ textarea{
   font-size: 13px;
 }
 
+/* =========================
+   ERROR POPUP
+========================= */
+.popup-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 9999;
+}
+
+.popup-overlay.show{
+  display: flex;
+  animation: fadeOverlay 180ms ease;
+}
+
+.popup{
+  width: min(520px, 100%);
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(10,12,20,0.88);
+  backdrop-filter: blur(18px);
+  padding: 18px;
+  box-shadow: 0 26px 120px rgba(0,0,0,0.6);
+  animation: popIn 220ms ease;
+}
+
+.popup-icon{
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight: 900;
+  font-size: 26px;
+  color: #050814;
+  background: linear-gradient(90deg, #ff4d6d, #ffb703);
+  margin-bottom: 12px;
+}
+
+.popup-content h3{
+  margin: 0 0 6px;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.popup-content p{
+  margin: 0 0 16px;
+  color: rgba(255,255,255,0.70);
+  line-height: 1.55;
+}
+
+.popup-btn{
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: none;
+  cursor:pointer;
+  font-weight: 900;
+  font-size: 15px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #050814;
+}
+
+@keyframes popIn{
+  from{ opacity:0; transform: translateY(10px) scale(0.98); }
+  to{ opacity:1; transform: translateY(0px) scale(1); }
+}
+
+@keyframes fadeOverlay{
+  from{ opacity:0; }
+  to{ opacity:1; }
+}
+
+
 /* Responsive */
 @media (max-width: 640px){
   .card{ padding: 14px; }
