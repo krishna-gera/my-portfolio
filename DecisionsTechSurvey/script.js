@@ -1,101 +1,80 @@
-const sections = Array.from(document.querySelectorAll(".section"));
-const progressBar = document.getElementById("progressBar");
 const form = document.getElementById("customForm");
+const sections = Array.from(document.querySelectorAll(".section"));
+
+const progressBar = document.getElementById("progressBar");
+const metaTitle = document.getElementById("metaTitle");
+const metaSub = document.getElementById("metaSub");
 
 const thankyou = document.getElementById("thankyou");
 const restartBtn = document.getElementById("restartBtn");
 
-// Buttons
-const nextBtn1 = document.getElementById("nextBtn1");
-const nextBtn2 = document.getElementById("nextBtn2");
-const nextBtn3 = document.getElementById("nextBtn3");
-const nextBtn4 = document.getElementById("nextBtn4");
-
-const backBtn2 = document.getElementById("backBtn2");
-const backBtn3 = document.getElementById("backBtn3");
-const backBtn4 = document.getElementById("backBtn4");
-const backBtn5 = document.getElementById("backBtn5");
-
 let current = 0;
 
-function showSection(index) {
-  sections.forEach((s) => s.classList.remove("active"));
-  sections[index].classList.add("active");
-
-  const progress = Math.round(((index + 1) / sections.length) * 100);
-  progressBar.style.width = progress + "%";
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function validateSection(index) {
-  const activeSection = sections[index];
-  const requiredFields = activeSection.querySelectorAll("[required]");
-
-  for (const field of requiredFields) {
-    // For radio groups
-    if (field.type === "radio") {
-      const group = activeSection.querySelectorAll(`input[name="${field.name}"]`);
-      const checked = Array.from(group).some((r) => r.checked);
-      if (!checked) return false;
-    }
-
-    // For text/email/textarea
-    if ((field.type === "text" || field.type === "email" || field.tagName === "TEXTAREA") && !field.value.trim()) {
-      return false;
-    }
-  }
-
-  return true;
+function getOccupation() {
+  return document.querySelector('input[name="entry.455331503"]:checked')?.value || "";
 }
 
 /**
- * This is the logic part:
- * Occupation decides which section to show:
- * - Student -> Student section
- * - Faculty -> Faculty section
- * - Working professional -> skip both
+ * Occupation Routing:
+ * - Student -> show student section only
+ * - Faculty -> show faculty section only
+ * - Working Tech -> show tech section only
+ * - Working Non-tech -> show non-tech section only
+ * - Not working -> hide all occupation-specific sections
  */
-function handleOccupationRouting() {
-  const occupation = document.querySelector('input[name="entry.455331503"]:checked')?.value;
+function applyOccupationRouting() {
+  const occupation = getOccupation();
 
-  // By default we include all sections in the UI flow:
-  // [Basic] [Student] [Faculty] [AI Tools] [Final]
-  // But we hide irrelevant section dynamically.
+  const student = document.getElementById("studentSection");
+  const faculty = document.getElementById("facultySection");
+  const tech = document.getElementById("techSection");
+  const nonTech = document.getElementById("nonTechSection");
 
-  const studentSection = document.getElementById("studentSection");
-  const facultySection = document.getElementById("facultySection");
-
-  // Show both initially
-  studentSection.style.display = "";
-  facultySection.style.display = "";
+  // reset
+  student.style.display = "";
+  faculty.style.display = "";
+  tech.style.display = "";
+  nonTech.style.display = "";
 
   if (occupation === "Student") {
-    // show student, hide faculty
-    facultySection.style.display = "none";
-  } else if (occupation === "Faculty / Educator") {
-    // show faculty, hide student
-    studentSection.style.display = "none";
-  } else {
-    // working professional -> hide both
-    studentSection.style.display = "none";
-    facultySection.style.display = "none";
+    faculty.style.display = "none";
+    tech.style.display = "none";
+    nonTech.style.display = "none";
+  }
+  else if (occupation === "Faculty / Educator") {
+    student.style.display = "none";
+    tech.style.display = "none";
+    nonTech.style.display = "none";
+  }
+  else if (occupation === "Working Professional (Tech field)") {
+    student.style.display = "none";
+    faculty.style.display = "none";
+    nonTech.style.display = "none";
+  }
+  else if (occupation === "Working Professional (Non-tech)") {
+    student.style.display = "none";
+    faculty.style.display = "none";
+    tech.style.display = "none";
+  }
+  else {
+    // currently not working
+    student.style.display = "none";
+    faculty.style.display = "none";
+    tech.style.display = "none";
+    nonTech.style.display = "none";
   }
 }
 
 /**
- * IMPORTANT:
- * Google Forms still expects all fields.
- * But if a section is hidden, user won't fill those required fields.
- *
- * So we must remove required from hidden sections.
+ * If a section is hidden, remove required attributes
+ * so submission doesn't get blocked.
  */
 function syncRequiredForHiddenSections() {
   sections.forEach((section) => {
     const isHidden = section.style.display === "none";
-    const requiredInputs = section.querySelectorAll("[required]");
+    const req = section.querySelectorAll("[required]");
 
-    requiredInputs.forEach((el) => {
+    req.forEach((el) => {
       if (isHidden) {
         el.dataset.wasRequired = "true";
         el.removeAttribute("required");
@@ -108,57 +87,113 @@ function syncRequiredForHiddenSections() {
   });
 }
 
+function visibleSections() {
+  return sections.filter((s) => s.style.display !== "none");
+}
+
+function updateMeta() {
+  const vis = visibleSections();
+  const activeSection = vis[current];
+
+  const title = activeSection.dataset.title || "Survey";
+  const sub = activeSection.dataset.sub || "";
+
+  metaTitle.textContent = `Section ${current + 1} of ${vis.length}`;
+  metaSub.textContent = title;
+
+  const progress = Math.round(((current + 1) / vis.length) * 100);
+  progressBar.style.width = progress + "%";
+}
+
+function showCurrent() {
+  sections.forEach((s) => s.classList.remove("active"));
+
+  const vis = visibleSections();
+  if (!vis[current]) current = 0;
+
+  vis[current].classList.add("active");
+  updateMeta();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function validateCurrentSection() {
+  const vis = visibleSections();
+  const active = vis[current];
+
+  const requiredInputs = active.querySelectorAll("[required]");
+
+  // check required groups properly
+  for (const field of requiredInputs) {
+    if (field.type === "radio") {
+      const group = active.querySelectorAll(`input[name="${field.name}"]`);
+      const checked = Array.from(group).some((r) => r.checked);
+      if (!checked) return false;
+    }
+
+    if (field.type === "text" || field.type === "email" || field.tagName === "TEXTAREA") {
+      if (!field.value.trim()) return false;
+    }
+  }
+
+  return true;
+}
+
 function goNext() {
-  if (!validateSection(current)) {
+  if (!validateCurrentSection()) {
     alert("Please fill all required fields in this section.");
     return;
   }
 
   current++;
-  while (current < sections.length && sections[current].style.display === "none") {
-    current++;
-  }
-
-  if (current >= sections.length) current = sections.length - 1;
-  showSection(current);
+  showCurrent();
 }
 
 function goBack() {
   current--;
-  while (current >= 0 && sections[current].style.display === "none") {
-    current--;
-  }
-
   if (current < 0) current = 0;
-  showSection(current);
+  showCurrent();
 }
 
-// Navigation listeners
-nextBtn1.addEventListener("click", () => {
-  handleOccupationRouting();
-  syncRequiredForHiddenSections();
-  goNext();
+// Handle nav buttons
+document.addEventListener("click", (e) => {
+  const next = e.target.closest("[data-next]");
+  const back = e.target.closest("[data-back]");
+
+  if (next) {
+    // Apply routing only when leaving first section (occupation selected)
+    const vis = visibleSections();
+    const active = vis[current];
+
+    // If leaving Basic Details, apply routing
+    if (active && active.querySelector('input[name="entry.455331503"]')) {
+      applyOccupationRouting();
+      syncRequiredForHiddenSections();
+
+      // Reset current so flow is consistent
+      current = 0;
+      showCurrent();
+
+      // Now move forward
+      goNext();
+      return;
+    }
+
+    goNext();
+  }
+
+  if (back) goBack();
 });
-
-nextBtn2.addEventListener("click", () => goNext());
-nextBtn3.addEventListener("click", () => goNext());
-nextBtn4.addEventListener("click", () => goNext());
-
-backBtn2.addEventListener("click", () => goBack());
-backBtn3.addEventListener("click", () => goBack());
-backBtn4.addEventListener("click", () => goBack());
-backBtn5.addEventListener("click", () => goBack());
 
 // Submit handling
 form.addEventListener("submit", function (e) {
-  // validate last section
-  if (!validateSection(current)) {
+  if (!validateCurrentSection()) {
     e.preventDefault();
     alert("Please fill all required fields.");
     return;
   }
 
-  // Allow the form to submit into hidden iframe
+  // allow iframe submission, show thank you
   setTimeout(() => {
     form.style.display = "none";
     thankyou.style.display = "block";
@@ -167,20 +202,29 @@ form.addEventListener("submit", function (e) {
   }, 700);
 });
 
+// Restart
 restartBtn.addEventListener("click", () => {
-  // reset
   form.reset();
   form.style.display = "block";
   thankyou.style.display = "none";
 
-  // reset section visibility
+  // reset routing
   document.getElementById("studentSection").style.display = "";
   document.getElementById("facultySection").style.display = "";
+  document.getElementById("techSection").style.display = "";
+  document.getElementById("nonTechSection").style.display = "";
+
+  // reset required
+  sections.forEach((section) => {
+    section.querySelectorAll("[data-was-required]").forEach((el) => {
+      el.setAttribute("required", "");
+    });
+  });
 
   current = 0;
-  showSection(current);
+  showCurrent();
 });
 
 // Init
-showSection(0);
-progressBar.style.width = "20%";
+showCurrent();
+
