@@ -1,5 +1,5 @@
 const params = new URLSearchParams(window.location.search);
-const target = params.get('to') || 'https://example.com';
+const target = params.get('to') || 'https://google.com';
 const seconds = Number(params.get('delay')) || 3;
 
 const message = document.getElementById('message');
